@@ -1,5 +1,7 @@
-INSERT INTO board (title, content) VALUES ('첫 번째 게시글', '첫 번째 게시글 내용');
-INSERT INTO board (title, content) VALUES ('두 번째 게시글', '두 번째 게시글 내용');
-INSERT INTO board (title, content) VALUES ('세 번째 게시글', '세 번째 게시글 내용');
-INSERT INTO board (title, content) VALUES ('네 번째 게시글', '네 번째 게시글 내용');
-INSERT INTO board (title, content) VALUES ('다섯 번째 게시글', '다섯 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('한국', '첫 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('햔국', '두 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('중국', '세 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('일본', '네 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('딸기', '다섯 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('오렌지', '여섯 번째 게시글 내용');
+INSERT INTO board (title, content) VALUES ('오롄지', '일곱 번째 게시글 내용');

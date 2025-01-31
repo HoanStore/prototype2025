@@ -4,6 +4,11 @@
     <title>게시판</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/home.js"></script>
+    <style>
+        #searchMessage {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <h1>전체 게시판</h1>
@@ -13,6 +18,11 @@
     <button type="submit">검색</button>
 </form>
 
+<div id="searchMessage">
+    <p><span id="correctTitle"></span>로 검색한 결과입니다.
+        <a href="javascript:void(0)" id="originTitle"> ${originalTitle} 검색결과 보기</a>
+    </p>
+</div>
 
 <table>
     <thead>

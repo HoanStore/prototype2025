@@ -1,21 +1,54 @@
 $(document).ready(function() {
-    $.get("/findAll", function(boardList) {
-        updateBoardTable(boardList);
-    });
+    findAll();
+    initPage();
 
-    // 검색 폼 제출 시 제목으로 검색
-    $("#searchForm").submit(function(event) {
-        event.preventDefault();  // 폼 제출 방지
+    function initPage() {
+        findAll();
+        setSearchEvent();
+    }
 
-        const title = $("#searchTitle").val();
-        $.get("/findByTitle", { title: title }, function(boardList) {
+
+    function findAll() {
+        $('#searchMessage').hide();
+
+        $.get("/findAll", function(boardList) {
             updateBoardTable(boardList);
         });
-    });
+    }
 
-    // 테이블 업데이트 함수
+    function findByTitle(title) {
+        $('#searchMessage').hide();
+
+        $.get("/findByTitle", { title: title }, function(response) {
+            showOriginAndCorrectKeyWord(response.searchDTO);
+            updateBoardTable(response.boardList);
+        });
+    }
+
+    function findStrict(originalTitle) {
+        $('#searchMessage').hide();
+
+        $.get("/findStrict", { title: originalTitle }, function(boardList) {
+            updateBoardTable(boardList);
+        });
+    }
+
+    function setSearchEvent() {
+        $("#searchForm").submit(function(event) {
+            event.preventDefault();
+            const title = $("#searchTitle").val().trim();
+
+            if(title === "") {
+                findAll();
+            } else {
+                findByTitle(title);
+            }
+        });
+    }
+
     function updateBoardTable(boardList) {
         let tableBody = $("#boardTableBody");
+
         tableBody.empty();  // 기존 내용 지우기
         boardList.forEach(function(board) {
             tableBody.append(`
@@ -28,4 +61,24 @@ $(document).ready(function() {
             `);
         });
     }
+
+    function showOriginAndCorrectKeyWord(searchDTO) {
+        const correctedTitle = searchDTO.correctedTitle;
+        const originalTitle = searchDTO.originalTitle;
+
+        if (correctedTitle !== "") {
+            $('#correctTitle').text(correctedTitle);
+            $('#originTitle').text(`${originalTitle} 검색결과 보기`).data('original-title', originalTitle);
+
+            $('#originTitle').on('click', function() {
+                const originalTitle = $(this).data('original-title');
+                findStrict(originalTitle);
+            });
+
+            $('#searchMessage').show();
+        }
+    }
+
+
+
 });

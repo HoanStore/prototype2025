@@ -1,50 +1,104 @@
 package com.hoan.likesearchoptimizer.search.util;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
 public class NaverApiService {
 
-    private static final String CLIENT_ID = "OZYjoBCzXlk2nkK9nyVs";
+    private static final String BASE_URL = "https://openapi.naver.com/v1/search/errata.json?query=";
+    private static final String CLIENT_ID = "OZyjoBCzXlk2nkK9nyVs";
     private static final String CLIENT_SECRET = "xwHBCEPXLZ";
-    private static final String API_URL = "https://openapi.naver.com/v1/search/webkr.json?query=%EB%95%B0%EA%B8%B0&display=10&start=1";
 
-    public static void main(String[] args) {
+    public String getCorrectSpelling(String query)  {
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        String apiURL = BASE_URL + encodedQuery;
+        Map<String, String> requestHeaders = new HashMap<>();
 
-        String clientId = "OZYjoBCzXlk2nkK9nyVs";
-        String clientSecret = "xwHBCEPXLZ";
+        requestHeaders.put("Accept", "*/*");
+        requestHeaders.put("User-Agent", "Mozilla/5.0");
+        requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);
+        requestHeaders.put("X-Naver-Client-Secret", CLIENT_SECRET);
+        String responseBody = get(apiURL,requestHeaders);
 
-
-        URI uri = UriComponentsBuilder
-                .fromUriString("https://openapi.naver.com")
-                .path("/v1/search/webkr.json")
-                .queryParam("query", "주식")
-                .queryParam("display", 10)
-                .queryParam("start", 1)
-                .encode()
-                .build()
-                .toUri();
-
-        // Spring 요청 제공 클래스
-        RequestEntity<Void> req = RequestEntity
-                .get(uri)
-                .header("X-Naver-Client-Id", clientId)
-                .header("X-Naver-Client-Secret", clientSecret)
-                .build();
-        // Spring 제공 restTemplate
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
-
-        String body = resp.getBody();
-        System.out.println("body = " + body);
+        return extractValueInJson(responseBody);
     }
 
+    private String extractValueInJson(String json) {
+        String value = "";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(json);
+            value = rootNode.get("errata").asText();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return value;
+    }
+
+
+    private String get(String apiUrl, Map<String, String> requestHeaders){
+        HttpURLConnection con = connect(apiUrl);
+        try {
+            con.setRequestMethod("GET");
+            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+                con.setRequestProperty(header.getKey(), header.getValue());
+            }
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+                return readBody(con.getInputStream());
+            } else { // 오류 발생
+                return readBody(con.getErrorStream());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("API 요청과 응답 실패", e);
+        } finally {
+            con.disconnect();
+        }
+    }
+
+    private HttpURLConnection connect(String apiUrl){
+        try {
+            URL url = new URL(apiUrl);
+            return (HttpURLConnection)url.openConnection();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+        } catch (IOException e) {
+            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+        }
+    }
+
+    private String readBody(InputStream body){
+        InputStreamReader streamReader = new InputStreamReader(body);
+
+        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+            StringBuilder responseBody = new StringBuilder();
+            String line;
+            while ((line = lineReader.readLine()) != null) {
+                responseBody.append(line);
+            }
+            return responseBody.toString();
+        } catch (IOException e) {
+            throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
+        }
+    }
 
 }
