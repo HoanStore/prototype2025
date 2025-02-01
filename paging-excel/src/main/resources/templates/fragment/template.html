@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:fragment="templateFragment">
+
+    <template id="basic_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export">{{title}}</a>
+            </td>
+            <td>-</td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="basic_empty_template" type="x-tmpl-mustache">
+        <tr>
+            <td class="no_data" colspan="6">검색된 결과가 없습니다.</td>
+        </tr>
+    </template>
+
+
+    <template id="statistics_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{continent}}</td>
+            <td>{{btype}}</td>
+            <td>{{year}}</td>
+            <td>{{country}}</td>
+            <td class="a_left stype" style="white-space: pre-line;">{{stype}}</td>
+            <td>
+                {{#content}}<a href="/admin/export/statistics/modify/{{bno}}">{{content}}</a>{{/content}}
+                {{^content}}<a href="/admin/export/statistics/modify/{{bno}}">-</a>{{/content}}
+            </td>
+            <td>{{cname}}</td>
+            <td>{{money}}</td>
+            <td>{{rtype}}</td>
+            <td>{{bsource}}</td>
+            <td>{{serialNumber}}</td>
+            <td>{{currencyRate}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+
+    <template id="examples_kr_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/examples/{{bno}}?lang=ko">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="examples_en_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/examples/{{bno}}?lang=en">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="examples_sp_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/examples/{{bno}}?lang=es">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+
+    <template id="world-its-market-infos_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/world-its-market-infos/{{bno}}">{{title}}</a>
+                {{#secrYn}}<span class="icon Y"></span>{{/secrYn}}
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+
+    <template id="its-order-infos_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/its-order-infos/{{bno}}">{{title}}</a>
+                {{#secrYn}}<span class="icon Y"></span>{{/secrYn}}
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regDate}}</td>
+            <td>{{clsnDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="world-company-infos_kr_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/world-company-infos/{{bno}}?lang=ko">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="world-company-infos_en_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/world-company-infos/{{bno}}?lang=en">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="world-company-infos_sp_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/world-company-infos/{{bno}}?lang=es">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+
+    <template id="world-organization-infos_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/world-organization-infos/{{bno}}">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+
+    <template id="tech_market_trend_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/export/tech-market-trends/{{bno}}">{{title}}</a>
+            </td>
+            <td class="fileYn">
+                {{#attflId}}
+                    <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                    -
+                {{/attflId}}
+            </td>
+            <td>{{regName}}</td>
+            <td>{{regDate}}</td>
+            <td>{{viewCnt}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <script id="paging_template" type="javascript/x-tmpl-mustache">
+        {{#data}}
+          <a href="javascript:{{func}}({{firstPage}})" class="list_btn"><span>&lt;&lt;</span></a>
+          <a href="javascript:{{func}}({{prevPage}})" class="list_btn"><span class="style_2">&lt;</span></a>
+          {{#pages}}
+            {{#current}}
+              <span title="현재 {{page}}페이지" class="on pages">{{page}}</span>
+            {{/current}}
+            {{^current}}
+              <span class="pages">
+                <a href="javascript:{{func}}({{page}})" title="{{page}}페이지 이동">{{page}}</a>
+              </span>
+            {{/current}}
+          {{/pages}}
+          <a href="javascript:{{func}}({{nextPage}})" class="list_btn"><span class="style_2">&gt;</span></a>
+          <a href="javascript:{{func}}({{lastPage}})" class="list_btn"><span>&gt;&gt;</span></a>
+        {{/data}}
+
+
+    </script>
+
+    <template id="delete_template" type="x-tmpl-mustache">
+        {{#data}}
+        <div class="pop pop_check" style="display: none;">
+            <div class="pop_box">
+                <p class="tit">확인</p>
+                <div class="p_cont">
+                    <p>{{message1}}<br/>{{message2}}</p>
+                    <a class="btn">확인</a>
+                </div>
+                <a href="javascript:void(0);" class="btn_close"><img th:src="@{/images/common/btn_popup_close.gif}"
+                                                                     alt="닫기"/></a>
+            </div>
+        </div>
+        {{/data}}
+    </template>
+
+
+    <template id="contacts_template" type="x-tmpl-mustache">
+        {{#data}}
+        <div class="tb_cont">
+            <span class="txt_inquiry">{{title}}</span>
+        </div>
+        <table class="table_list inquiry">
+            <caption>{{title}}</caption>
+            <colgroup>
+                <col style="width: 150px"/>
+                <col style="width: 10%"/>
+                <col style="width: auto"/>
+            </colgroup>
+            <tbody>
+            <tr>
+                <th rowspan="4" class="img"><img th:src="@{/images/homepage/contacts.jpg}" alt="아이콘"/></th>
+                <th class="line">담당자</th>
+                <td class="line a_left">{{prchNm}}</td>
+            </tr>
+            <tr>
+                <th class="line">전화</th>
+                <td class="line a_left">{{prchTelno}}</td>
+            </tr>
+            <tr>
+                <th>팩스</th>
+                <td class="a_left">{{fax}}</td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td class="a_left">{{email}}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{/data}}
+    </template>
+
+    <template id="contacts_edit_template" type="x-tmpl-mustache">
+        {{#data}}
+        <div class="tb_cont">
+            <span class="txt_inquiry">{{title}}</span>
+        </div>
+        <table class="table_list inquiry">
+            <caption>{{title}}</caption>
+            <colgroup>
+                <col style="width: 150px"/>
+                <col style="width: 10%"/>
+                <col style="width: auto"/>
+            </colgroup>
+            <tbody>
+            <tr>
+                <input type="hidden" name="inp_rsntListNo" class="{{dspyTord}}" value="{{rsntListNo}}"/>
+                <input type="hidden" name="inp_lang" class="{{dspyTord}}" value="{{langType}}"/>
+                <th rowspan="4" class="img"><img th:src="@{/images/homepage/contacts.jpg}" alt="아이콘"/></th>
+                <th class="line">담당자</th>
+                <td class="line a_left"><input type="text" name="inp_prchNm" class="{{dspyTord}}" value="{{prchNm}}"></td>
+            </tr>
+            <tr>
+                <th class="line">전화</th>
+                <td class="line a_left"><input type="text" name="inp_prchTelno" class="{{dspyTord}}" value="{{prchTelno}}"></td>
+            </tr>
+            <tr>
+                <th>팩스</th>
+                <td class="a_left"><input type="text" name="inp_fax" class="{{dspyTord}}" value="{{fax}}"></td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td class="a_left"><input type="text" name="inp_email" class="{{dspyTord}}" value="{{email}}"></td>
+            </tr>
+            </tbody>
+        </table>
+        {{/data}}
+    </template>
+
+    <template id="cermn_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="#" data-no="{{mgmtNo}}">{{cermnNm}}</a>
+            </td>
+            <td class="fileYn">-</td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDate}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="application_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>
+                <a href="#" data-no="{{mgmtNo}}">{{cermnNm}}</a>
+            </td>
+            <td>{{strtDates}} ~ {{endDates}}</td>
+            <td>{{status}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="application_info_template" type="x-tmpl-mustache">
+        <tr>
+            <td class="last confInfo">
+                <input type="text" class="autoIdx" disabled style="border: none; width:12px; font-weight: bold;"/>
+                <input type="text" name="contentLists[{{index}}].infoNm"/>
+                <input type="text" class="w_300" name="contentLists[{{index}}].infoCtnt"/>
+                <a href="#" class="btn_red align_r btn_modify_del">삭제</a>
+                <a href="#" class="btn_red align_r btn_del">삭제</a>
+            </td>
+        </tr>
+    </template>
+
+    <template id="gallery_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>
+                <a href="#" data-no="{{mgmtNo}}">{{cermnNm}}</a>
+            </td>
+            <td class="fileYn">-</td>
+            <td>{{rgsrNm}}</td>
+            <td>{{rgstDate}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="schedule_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>
+                <a href="#" data-no="{{mgmtNo}}">{{cermnNm}}</a>
+            </td>
+            <td>{{schlPlac}}</td>
+            <td>{{strtDates}} ~ {{endDates}}</td>
+            <td>{{schlUrl}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="company_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>
+                {{#isPublished}}
+                    게시
+                {{/isPublished}}
+                {{^isPublished}}
+                    {{rowNo}}
+                {{/isPublished}}
+            </td>
+            <td class="a_left">
+                <a href="#" data-no="{{ntrpMgmtNo}}">{{inrdTitl}}</a>
+            </td>
+            <td>{{bltnYn}}</td>
+            <td class="fileYn">-</td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDate}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="matching_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>{{inrdTitl}}</td>
+            <td>
+                <a href="#" data-no="{{ntrpMgmtNo}}" data-seq="{{mtchSeq}}">{{mtchTitl}}</a>
+                <span style="margin: 0px 3px;"><b>{{#commCnt}}[{{commCnt}}]{{/commCnt}}</b></span>
+            </td>
+            <td>{{applcntNm}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{statType}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="center_members_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td data-id="{{id}}">{{idx}}</td>
+            <td>{{name}}</td>
+            <td>{{rank}}</td>
+            <td>{{work}}</td>
+            <td>{{tel}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="center_members_edit_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr name="center_members_row" class="row_{{id}}" data-memberId="{{id}}">
+            <td name="id" data-id="{{id}}">{{idx}}</td>
+            <td><input type="text" class="small inp" name="name" value="{{name}}"/></td>
+            <td><input type="text" class="middle inp" name="rank" value="{{rank}}"/></td>
+            <td><input type="text" class="wide inp" name="work" value="{{work}}" size="100"/></td>
+            <td><input type="text" class="middle inp" name="tel" value="{{tel}}"/></td>
+            <td><input type="button" onclick="centerMembers.subRow(this);" value="삭제"></td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="center_members_add_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr name="center_members_row" class="row_{{id}} add_row" data-lang="{{lang}}">
+            <td name="id">{{idx}}</td>
+            <td><input type="text" class="small inp" name="name" value=""/></td>
+            <td><input type="text" class="middle inp" name="rank" value=""/></td>
+            <td><input type="text" class="wide inp" name="work" value="" size="100"/></td>
+            <td><input type="text" class="middle inp" name="tel" value=""/></td>
+            <td><input type="button" onclick="centerMembers.subRow(this);" value="삭제"></td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="popup_list_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNum}}</td>
+            <td class="a_left"><a href="#" onclick="popups.getModify(this);" data-bno="{{poppMgmtNo}}">{{poppTitl}}</a></td>
+            <td>{{startDt}} ~ {{endDt}}</td>
+            <td>{{bltnYn}}</td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDttm}}</td>
+            <td><a onclick="popups.openPreview(this);" data-bno="{{poppMgmtNo}}">미리보기</a></td>
+            <td><a onclick="popups.deletePopup(this);" data-bno="{{poppMgmtNo}}" data-id="{{attflId}}">삭제</a></td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="popup_empty_template" type="x-tmpl-mustache">
+        <tr>
+            <td class="no_data" colspan="8">검색된 결과가 없습니다.</td>
+        </tr>
+    </template>
+
+    <template id="videos_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/promotion/video-info/{{bno}}">{{title}}</a>
+            </td>
+
+            <td>
+                {{#attflId}}
+                <img class="file0" th:src="@{/images/common/file_zip.png}" alt="첨부파일">
+                {{/attflId}}
+                {{#pbltUrl}}
+                <img class="file0" th:src="@{/images/common/icon_home.gif}" alt="첨부링크">
+                {{/pbltUrl}}
+            </td>
+            <td>{{rgsrNm}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="brochures_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr id="{{attflId}}">
+            <td>{{bno}}</td>
+            <td class="a_left">
+                <a href="/admin/promotion/brochure-info/{{bno}}">{{title}}</a>
+            </td>
+            <td>
+                {{#attflDetl}}
+                {{#koFile}}
+                <img th:src="@{/images/common/icon_check.gif}" alt="체크">
+                {{/koFile}}
+                {{/attflDetl}}
+            </td>
+            <td>
+                {{#attflDetl}}
+                {{#enFile}}
+                <img th:src="@{/images/common/icon_check.gif}" alt="체크">
+                {{/enFile}}
+                {{/attflDetl}}
+            </td>
+            <td>
+                {{#attflDetl}}
+                {{#chFile}}
+                <img th:src="@{/images/common/icon_check.gif}" alt="체크">
+                {{/chFile}}
+                {{/attflDetl}}
+            </td>
+            <td>
+                {{#attflDetl}}
+                {{#esFile}}
+                <img th:src="@{/images/common/icon_check.gif}" alt="체크">
+                {{/esFile}}
+                {{/attflDetl}}
+            </td>
+            <td>{{rgsrNm}}</td>
+            <td>{{rgstDttm}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="news_letters_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/promotion/newsLetter-info/{{bno}}">{{title}}</a>
+            </td>
+            <td>{{sendYn}}</td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="library_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="">
+                <a href="/admin/education/library-info/{{bno}}">{{title}}</a>
+            </td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="online_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="a_left">
+                <a href="/admin/education/online-info/{{bno}}">{{title}}</a>
+            </td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="notice1_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>상시공지</td>
+            <td class="">
+                <a href="/admin/communication/notice-info/{{bno}}">{{title}}</a>
+                {{#isSecret}}
+                <span class="icon {{secrYn}}" name="{{secrYn}}">비밀글</span>
+                {{/isSecret}}
+            </td>
+
+            <td>
+                {{#attflId}}
+                <img class="file0" th:src="@{/images/common/file_zip.png}" alt="첨부파일">
+                {{/attflId}}
+            </td>
+            <td>{{rgsrRm}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="notice2_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td class="">
+                <a href="/admin/communication/notice-info/{{bno}}">{{title}}</a>
+                {{#isSecret}}
+                <span class="icon {{secrYn}}" name="{{secrYn}}">비밀글</span>
+                {{/isSecret}}
+            </td>
+            <td>
+                {{#attflId}}
+                <img class="file0" th:src="@{/images/common/file_zip.png}" alt="첨부파일">
+                {{/attflId}}
+            </td>
+            <td>{{rgsrRm}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{inqyCo}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="survey_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>
+                <a href="/admin/communication/survey-info/{{bno}}">{{title}}</a>
+            </td>
+            <td>
+                {{srvyStrtDates}}~{{srvyEndDates}}
+            </td>
+            <td>설문상태</td>
+            <td>
+                <a href="/admin/communication/survey-info/{{bno}}">결과보기</a>
+            </td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="question_template" type="x-tmpl-mustache">
+        <tbody class="questionClass">
+        <tr class="questionTitle">
+            <th scope="col">문항명</th>
+            <td scope="col">
+                <input name="questionTitle" th:id="questionTitle" type="text" title="문항명" class="w_85per"/>
+                <a href="javascript:void(0);" class="btn_red align_r" onclick="surveys.delQuestion(this)">삭제</a>
+            </td>
+        </tr>
+        <tr class="questionType">
+            <td scope="col">객관식/주관식</td>
+            <td scope="col">
+                <select name="questionType">
+                    <option value="0" selected>객관식-단일응답</option>
+                    <option value="1">객관식-복수응답</option>
+                    <option value="2">주관식</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="questionCount sub">
+            <th scope="col">보기 갯수</th>
+            <td scope="col">
+                <select onchange="surveys.onchangeAnswer(this)" name="questionSort">
+                    <option value="">선택</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+    </template>
+
+    <template id="board_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>
+                <a href="/admin/communication/board-info/{{bno}}">{{title}}(비밀글)</a>
+            </td>
+            <td>{{wrtrNm}}</td>
+            <td>{{rgstDttm}}</td>
+            <td>{{statType}}</td>
+        </tr>
+        {{/data}}
+    </template>
+    <template id="faq_template_info" type="x-tmpl-mustache">
+        {{#data}}
+        <tr id="faqTitle{{faqMgmtNo}}" class="count" onclick="faqs.InfoFaqContent('{{faqMgmtNo}}')">
+            <td scope="col">{{rowNo}}</td>
+            <td colspan="2" class="a_left">{{inqTitl}}</td>
+        </tr>
+
+        <tr id="faqContent{{faqMgmtNo}}" class="hide">
+            <td colspan="2" class="a_left answer">{{inqRepl}}</td>
+            <td scope="col" class="faq_btn">
+                <a class="btn_blue" href="javascript:faqs.modifyFaqForm('{{faqMgmtNo}}');" id="btn_modify{{faqMgmtNo}}">수정</a>
+                <a class="btn_gray" href="javascript:faqs.deleteFaq('{{faqMgmtNo}}');"
+                   id="btn_delete{{faqMgmtNo}}">삭제</a>
+            </td>
+        </tr>
+
+        <tr id="modifyTitle{{faqMgmtNo}}" style="display: none;">
+            <td scope="col">{{rowNo}}</td>
+            <td colspan="2" class="a_left">
+                <input type="text" class="w_100per" value="{{inqTitl}}"/>
+            </td>
+        </tr>
+
+        <tr id="modifyContent{{faqMgmtNo}}" style="display: none;">
+            <td colspan="2" class="a_left answer">
+                <textarea>{{inqRepl}}</textarea>
+            </td>
+            <td scope="col" class="faq_btn">
+                <a class="btn_blue" href="javascript:void(0);" onclick="faqs.modifyFaqComment('{{faqMgmtNo}}')"
+                   id="btn_save{{faqMgmtNo}}">저장</a>
+                <a class="btn_gray" href="javascript:faqs.deleteFaq('{{faqMgmtNo}}');"
+                   id="btn_delete_modi{{faqMgmtNo}}">삭제</a>
+            </td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="popup_preview_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNum}}</td>
+            <td><a href="#" onclick="popups.getModify(this);" data-bno="{{poppMgmtNo}}">{{poppTitl}}</a></td>
+            <td>{{startDt}}<br>-<br>{{endDt}}</td>
+            <td>{{bltnYn}}</td>
+            <td>{{oprrId}}</td>
+            <td>{{rgstDttm}}</td>
+            <td><a onclick="popups.openPreview(this);" data-bno="{{poppMgmtNo}}">미리보기</a></td>
+            <td><a onclick="popups.deletePopup(this);" data-bno="{{poppMgmtNo}}">삭제</a></td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="popup_preview_text_template" type="x-type=mustache">
+        {{#data}}
+        <div class="title">
+            <p id="preview_title">{{poppTitl}}</p>
+        </div>
+        <div class="text" id="preview_text" style="word-break:break-all;">
+            {{poppCtnt}}
+        </div>
+        <div class="btn"><a class="btn_gray" href="javascript:void(0);">바로가기</a></div>
+        {{/data}}
+    </template>
+
+    <template id="banners_template" type="x-type=mustache">
+        {{#data}}
+        <tr>
+            <th rowspan="2" class="img"><img src="" alt="배너"/></th>
+            <th class="line">이미지 설명</th>
+            <td class="line a_left"> 이미지 설명 내용*_*</td>
+            <td class="btn" rowspan="2">
+                <a class="btn_gray" id="moveUp" href="javascript:void(0);" onclick=""> 화살표영역 == ↑ / ↓ </a>
+            </td>
+            <td class="btn" rowspan="2" style="width: 10%;"><a class="btn_gray" href="javascript:void(0);"
+                                                               onclick="">수정</a></td>
+            <td class="btn" rowspan="2" style="width: 10%;"><a class="btn_gray" href="javascript:void(0);"
+                                                               onclick="">삭제</a></td>
+        </tr>
+        <tr>
+            <th>URL</th>
+            <td class="a_left"><a href="" target="_blank">{{bnrUrl}}</a></td>
+        </tr>
+        {{data}}
+    </template>
+
+    <template id="bnr_empty_template" type="x-type=mustache">
+        {{#data}}
+        <tr>
+            <th colspan="3" class="img">등록된 배너 없음</th>
+        </tr>
+        {{data}}
+    </template>
+
+    <template id="info_collection_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>{{mgmtType}}</td>
+            <td class="a_left">{{btitle}}</td>
+            <td>{{purpose}}</td>
+            <td>{{companyNm}}</td>
+            <td>{{email}}</td>
+            <td>{{rgstDate}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="info_collection_empty_template" type="x-tmpl-mustache">
+        <tr>
+            <td class="no_data" colspan="7">검색된 결과가 없습니다.</td>
+        </tr>
+    </template>
+</th:block>
+</html>

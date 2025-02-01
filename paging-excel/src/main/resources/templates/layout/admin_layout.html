@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko-KR"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">ITS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" th:href="@{/css/common/common.css}">
+    <link rel="stylesheet" th:href="@{/css/common/admin.css}">
+    <link rel="stylesheet" th:href="@{/webjars/jquery-ui/jquery-ui.css}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/favicon-16x16.png}">
+
+    <script th:src="@{/webjars/mustache/mustache.min.js}"></script>
+    <script th:nonce="${nonce}" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-blockui/jquery.blockUI.js}"></script>
+    <script th:src="@{/webjars/jquery-ui/jquery-ui.js}"></script>
+    <script th:nonce="${nonce}" th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/common/sidebar.js}"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+    <div id="header" th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <div id="contents">
+        <div id="header-gnb" th:replace="~{fragment/header-gnb :: headerGnbFragment}"></div>
+        <div id="sidebar" th:replace="~{fragment/sidebar :: sidebarFragment}"></div>
+        <div layout:fragment="content"></div>
+    </div>
+
+    <div id="footer" th:replace="~{fragment/footer :: footerFragment}"></div>
+</div>
+
+<div th:replace="~{fragment/template :: templateFragment}"></div>
+<div th:replace="~{fragment/authTemplate :: authTemplateFragment}"></div>
+<div th:replace="~{fragment/homepageTemplate :: homepageTemplateFragment}"></div>
+
+</body>
+</html>

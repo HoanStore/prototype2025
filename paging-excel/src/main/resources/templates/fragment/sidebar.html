@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+
+<script th:nonce="${nonce}" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:inline="javascript">
+</script>
+<script th:inline="javascript">$(document).ready(function (){getMenuCode(0);});</script>
+
+<div id="sidebar" th:fragment="sidebarFragment" class="menu">
+</div>
+</html>

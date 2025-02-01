@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:fragment="authTemplateFragment">
+
+    <template id="admin_auth" type="x-tmpl-mustache">
+        {{#data}}
+        <tr>
+            <td>{{rowNo}}</td>
+            <td>{{id}}</td>
+            <td>{{pwd}}</td>
+            <td>
+                <a class="btn_gray delete" data-id={{id}} href="javascript:void(0);" id="btn_delete_{{bno}}">삭제</a>
+                <input type="hidden" value="{{bno}}" />
+            </td>
+            <td>
+                <select id="" class="admin_auth_select" name="admin_auth_types_{{rowNo}}" data-auth-type="{{authType}}">
+                    <option value="1">일반 정보 관리 권한</option>
+                    <option value="2">수출 관련 관리 권한</option>
+                    <option value="3">행사 정보 관리 권한</option>
+                    <option value="0">통합 관리 권한</option>
+                </select>
+            </td>
+            <td>
+                <a class="btn_red" href="javascript:void(0);" id="btn_save" data-id={{id}} data-select="admin_auth_types_{{rowNo}}">저장</a>
+            </td>
+        </tr>
+        {{/data}}
+    </template>
+
+</th:block>
+</html>

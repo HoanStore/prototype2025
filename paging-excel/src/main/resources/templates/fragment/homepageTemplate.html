@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:fragment="homepageTemplateFragment">
+
+    <template id="basic_header_template" type="x-tmpl-mustache">
+        <tr>
+            <th rowspan="2" style="width: 20px">No</th>
+            <th rowspan="2" style="width: 50px">대륙</th>
+            <th rowspan="2" style="width: 80px">국가</th>
+            <th colspan="2" style="width: 170px">주체</th>
+            <th colspan="1" style="width: 170px">대상</th>
+            <th rowspan="2" style="width: 50px">유형</th>
+            <th rowspan="2" style="width: 140px">건명</th>
+            <th rowspan="2" style="width: 140px">세부사항</th>
+            <th rowspan="2" style="width: 55px">시작일</th>
+            <th rowspan="2" style="width: 55px">종료일</th>
+            <th rowspan="2" style="width: 90px">장소</th>
+            <th rowspan="2" style="width: 20px">첨부파일</th>
+        </tr>
+        <tr>
+            <th style="width: 30px" >구분</th>
+            <th style="width: 140px" >세부기관</th>
+            <th style="width: 60px" >기관</th>
+        </tr>
+    </template>
+
+    <template id="ncard_header_template" type="x-tmpl-mustache">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">기간</th>
+            <th scope="col">행사명</th>
+            <th scope="col">국가</th>
+            <th scope="col">Title<br />(Ms./Mr./Dr.)</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Organization</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone No</th>
+            <th scope="col">Mobile No</th>
+            <th scope="col">비고</th>
+        </tr>
+    </template>
+
+    <template id="participant_header_template" type="x-tmpl-mustache">
+        <tr>
+            <th scope="col">년도</th>
+            <th scope="col">행사명</th>
+            <th scope="col">국가</th>
+            <th scope="col">기업명</th>
+            <th scope="col">이름</th>
+            <th scope="col">직책</th>
+            <th scope="col">이메일</th>
+            <th scope="col">유선번호</th>
+            <th scope="col">핸드폰</th>
+            <th scope="col">행사일</th>
+            <th scope="col">비고</th>
+        </tr>
+    </template>
+
+    <template id="collaborate_header_template" type="x-tmpl-mustache">
+        <tr>
+            <th rowspan="2" style="width: 20px">No</th>
+            <th rowspan="2" style="width: 50px">대륙</th>
+            <th rowspan="2" style="width: 80px">국가</th>
+            <th colspan="2" style="width: 170px">주체</th>
+            <th colspan="1" style="width: 170px">대상</th>
+            <th rowspan="2" style="width: 50px">유형</th>
+            <th rowspan="2" style="width: 140px">건명</th>
+            <th rowspan="2" style="width: 140px">세부사항</th>
+            <th rowspan="2" style="width: 55px">시작일</th>
+            <th rowspan="2" style="width: 55px">종료일</th>
+            <th rowspan="2" style="width: 90px">장소</th>
+            <th rowspan="2" style="width: 20px">첨부파일</th>
+        </tr>
+        <tr>
+            <th style="width: 30px" >구분</th>
+            <th style="width: 140px" >세부기관</th>
+            <th style="width: 60px" >기관</th>
+        </tr>
+    </template>
+
+    <template id="biz_header_template" type="x-tmpl-mustache">
+        <tr>
+            <th rowspan="2" width="50">No</th>
+            <th rowspan="2" width="50">대륙</th>
+            <th rowspan="2" width="60">국가</th>
+            <th colspan="2" width="150">주체</th>
+            <th rowspan="2" width="120">사업명</th>
+
+            <th rowspan="2" width="60">사업형태</th>
+            <th rowspan="2" width="80">추진단계</th>
+            <th rowspan="2" width="50">시작일</th>
+            <th rowspan="2" width="50">종료일</th>
+            <th colspan="3" width="170">국내 담당자 연락처</th>
+
+            <th colspan="3" width="170">해외 담당자 연락처</th>
+            <th rowspan="2" width="20">첨부파일</th>
+        </tr>
+        <tr>
+            <th width="30">구분</th>
+            <th width="70">세부기관</th>
+
+            <th width="50">기관명</th>
+            <th width="50">이름</th>
+            <th width="50">부서명/직책</th>
+
+            <th width="50">기관명</th>
+            <th width="50">이름</th>
+            <th width="50">부서명/직책</th>
+        </tr>
+    </template>
+
+    <template id="ncard_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr class="ncard_row" data-bno="{{ncrdMgmtNo}}">
+            <td style="cursor:pointer">{{ncrdMgmtNo}}</td>
+            <td style="cursor:pointer">{{rgstStrtDatesYear}}</td>
+            <td style="cursor:pointer">{{cermnNm}}</td>
+            <td style="cursor:pointer">{{cnttNm}}</td>
+            <td style="cursor:pointer">{{tohNm}}</td>
+            <td style="cursor:pointer">{{firstNm}}</td>
+            <td style="cursor:pointer">{{lastNm}}</td>
+            <td style="cursor:pointer">{{ncrdRsofNm}}</td>
+            <td style="cursor:pointer">{{blngNm}}</td>
+            <td style="cursor:pointer">{{email}}</td>
+            <td style="cursor:pointer">{{cnpl}}</td>
+            <td style="cursor:pointer">{{cpno}}</td>
+            <td style="cursor:pointer">{{rmrk}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="participant_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr class="participant_row" data-bno="{{adhrncMgmtNo}}">
+            <td style="cursor:pointer">{{prtcYear}}</td>
+            <td style="cursor:pointer">{{cermnNm}}</td>
+            <td style="cursor:pointer">{{ntnlNm}}</td>
+            <td style="cursor:pointer">{{ntrpNm}}</td>
+            <td style="cursor:pointer">{{adhrncNm}}</td>
+            <td style="cursor:pointer">{{rsofNm}}</td>
+            <td style="cursor:pointer">{{email}}</td>
+            <td style="cursor:pointer">{{cnpl}}</td>
+            <td style="cursor:pointer">{{cpno}}</td>
+            <td style="cursor:pointer">{{cermnStrtDates}} ~ {{cermnEndDates}}</td>
+            <td style="cursor:pointer">{{rmrk}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="domestic_participant_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr class="domestic_participant_row" data-bno="{{adhrncMgmtNo}}">
+            <td style="cursor:pointer">{{prtcYear}}</td>
+            <td style="cursor:pointer">{{cermnNm}}</td>
+            <td style="cursor:pointer">{{ntrpNm}}</td>
+            <td style="cursor:pointer">{{adhrncNm}}</td>
+            <td style="cursor:pointer">{{rsofNm}}</td>
+            <td style="cursor:pointer">{{email}}</td>
+            <td style="cursor:pointer">{{cnpl}}</td>
+            <td style="cursor:pointer">{{cpno}}</td>
+            <td style="cursor:pointer">{{rmrk}}</td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="collaborates_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr class="collaborate_row" data-bno="{{cllbrMgmtNo}}">
+            <td style="cursor:pointer">{{cllbrMgmtNo}}</td>
+            <td style="cursor:pointer">{{cnttNm}}</td>
+            <td style="cursor:pointer">{{ntnlNm}}</td>
+            <td style="cursor:pointer">{{hostDiv}}</td>
+            <td style="cursor:pointer">{{hostAgency}}</td>
+            <td style="cursor:pointer">{{targetAgency}}</td>
+            <td style="cursor:pointer">{{cllbrType}}</td>
+            <td style="cursor:pointer">{{cllbrNm}}</td>
+            <td style="cursor:pointer">{{detailMatr}}</td>
+            <td style="cursor:pointer">{{strtDates}}</td>
+            <td style="cursor:pointer">{{endDates}}</td>
+            <td style="cursor:pointer">{{plac}}</td>
+            <td class="fileYn" style="cursor:pointer">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+        </tr>
+        {{/data}}
+    </template>
+
+    <template id="biz_template" type="x-tmpl-mustache">
+        {{#data}}
+        <tr class="biz_row" data-bno="{{bizMgmtNo}}">
+            <td style="cursor:pointer">{{bizMgmtNo}}</td>
+            <td style="cursor:pointer">{{cnttNm}}</td>
+            <td style="cursor:pointer">{{ntnlNm}}</td>
+            <td style="cursor:pointer">{{hostDiv}}</td>
+            <td style="cursor:pointer">{{mnbdDetailInstNm}}</td>
+            <td style="cursor:pointer">{{bizNm}}</td>
+            <td style="cursor:pointer">{{bizFormType}}</td>
+            <td style="cursor:pointer">{{prmtType}}</td>
+            <td style="cursor:pointer">{{strtDates}}</td>
+            <td style="cursor:pointer">{{endDates}}</td>
+            <td style="cursor:pointer">{{instNm1}}</td>
+            <td style="cursor:pointer">{{prchNm1}}</td>
+            <td style="cursor:pointer">{{dprtNm1}}</td>
+            <td style="cursor:pointer">{{instNm2}}</td>
+            <td style="cursor:pointer">{{prchNm2}}</td>
+            <td style="cursor:pointer">{{dprtNm2}}</td>
+            <td class="fileYn" style="cursor:pointer">
+                {{#attflId}}
+                <img th:src="@{/images/common/file_zip.png}" alt="아이콘"/>
+                {{/attflId}}
+                {{^attflId}}
+                -
+                {{/attflId}}
+            </td>
+        </tr>
+        {{/data}}
+    </template>
+
+</th:block>
+</html>
