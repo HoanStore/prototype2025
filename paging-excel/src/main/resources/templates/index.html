@@ -6,13 +6,13 @@
       layout:decorate="~{layout/admin_layout}">
 <head>
     <title>수출통계 및 현황</title>
-    <script th:src="@{/js/export/exportCommon.js}"></script>
-    <script th:src="@{/js/export/statistic/statistics.js}"></script>
+    <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
+    <script th:src="@{/js/prototype/prototype.js}"></script>
 </head>
 <div class="cont_box" layout:fragment="content">
 
     <div class="navi">
-        <p><span class="home">Home</span><span>&gt</span>수출정보관리</span><span>&gt;</span><strong>수출통계 및 현황</strong></p>
+        <p><span class="home">Home</span><span>&gt</span>프로토타입</span><span>&gt;</span><strong>수출통계 및 현황</strong></p>
     </div>
     <div class="cont">
         <h3>수출통계 및 현황</h3>
@@ -60,35 +60,19 @@
         </form>
 
         <table class="table_list">
-            <caption>기술시장 동향</caption>
+            <caption>프로토타입</caption>
             <colgroup>
-                <col style="width:5%" />
-                <col style="width:5%" />
-                <col style="width:5%" />
-                <col style="width:6%" />
-                <col style="width:7%" />
                 <col style="width: auto" />
-                <col style="width:8%" />
-                <col style="width:8%" />
-                <col style="width:8%" />
-                <col style="width:8%" />
-                <col style="width:8%" />
-                <col style="width:5%" />
+                <col style="width: auto" />
+                <col style="width: auto" />
+                <col style="width: auto" />
             </colgroup>
             <thead>
             <tr>
-                <th scope="col">대륙</th>
-                <th scope="col">사업종류</th>
-                <th scope="col">년도</th>
-                <th scope="col">국가</th>
-                <th scope="col">시스템구분</th>
+                <th scope="col">ID</th>
+                <th scope="col">제목</th>
                 <th scope="col">내용</th>
-                <th scope="col">기업명</th>
-                <th scope="col">금액<br />(천USD)</th>
-                <th scope="col">재원구분</th>
-                <th scope="col">예산출처</th>
-                <th scope="col">근거자료<br />일련번호</th>
-                <th scope="col">적용<br />환율</th>
+                <th scope="col">생성시기</th>
             </tr>
             </thead>
             <tbody id="tmt_body">

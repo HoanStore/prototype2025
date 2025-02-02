@@ -30,21 +30,10 @@
     <template id="statistics_template" type="x-tmpl-mustache">
         {{#data}}
         <tr>
-            <td>{{continent}}</td>
-            <td>{{btype}}</td>
-            <td>{{year}}</td>
-            <td>{{country}}</td>
-            <td class="a_left stype" style="white-space: pre-line;">{{stype}}</td>
-            <td>
-                {{#content}}<a href="/admin/export/statistics/modify/{{bno}}">{{content}}</a>{{/content}}
-                {{^content}}<a href="/admin/export/statistics/modify/{{bno}}">-</a>{{/content}}
-            </td>
-            <td>{{cname}}</td>
-            <td>{{money}}</td>
-            <td>{{rtype}}</td>
-            <td>{{bsource}}</td>
-            <td>{{serialNumber}}</td>
-            <td>{{currencyRate}}</td>
+            <td>{{id}}</td>
+            <td>{{title}}</td>
+            <td>{{content}}</td>
+            <td>{{createdAt}}</td>
         </tr>
         {{/data}}
     </template>

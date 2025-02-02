@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoan.pagingexcel.prototype.mapper.PrototypeMapper">
+    <sql id="PROTOTYPE_SQL">
+        SELECT id, title, content, CREATED_AT as createdAt
+        FROM board
+    </sql>
+
+    <select id="getPrototypeListCnt" resultType="int"
+            parameterType="com.hoan.pagingexcel.common.domain.PageVO">
+        SELECT COUNT(*)
+        FROM(<include refid="PROTOTYPE_SQL"/>) prots
+    </select>
+
+    <select id="getPrototypeList" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeVO"
+            parameterType="com.hoan.pagingexcel.common.domain.PageVO">
+        SELECT *
+        FROM(<include refid="PROTOTYPE_SQL"/>) prots
+        order by prots.id desc LIMIT #{pageSize} OFFSET (#{curPage}-1) * 10
+    </select>
+
+</mapper>
