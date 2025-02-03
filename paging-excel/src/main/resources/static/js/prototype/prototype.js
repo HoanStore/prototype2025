@@ -30,45 +30,11 @@ const stats = (function () {
         });
     }
 
-    const transformStype = function (data){
-
-        const systems = ['교통관리', '대중교통', '전자지불', '교통정보유통', '지능형차량도로', '화물운송', '여행정보제공'];
-
-        for(let i = 0; i < data.length; i++){
-            const stype = data[i].stype;
-            let result = '';
-
-            for (let j = 0; j < stype.length; j++) {
-                if (stype[j] === 'Y') {
-                    if (result !== '') {
-                        result += '\n';
-                    }
-                    result += '- ' + systems[j];
-                }
-            }
-            data[i].stype = result;
-        }
-        return data;
-    }
-
-    const setSystemSelectBox = function (){
-        $(".search_area select").on('change', function (){
-            if($(".search_area select").val() === 'its_system'){
-                $("#keywordInput").hide();
-                $("#its_system").show();
-            }else {
-                $("#keywordInput").show();
-                $("#its_system").hide();
-            }
-        });
-    }
-
     const changePageSize = function () {
         $('#perPageNum').on('change', function(){
             getStatistics();
         });
     }
-
 
     const downloadTemplateExcel = function () {
         $(".btn_excel_template_download").click(function () {
@@ -122,7 +88,6 @@ const stats = (function () {
 
     return {
         getStatistics : getStatistics,
-        setSystemSelectBox : setSystemSelectBox,
         changePageSize : changePageSize,
         downloadExcel : downloadExcel,
         downloadTemplateExcel : downloadTemplateExcel,
@@ -136,7 +101,6 @@ $(document).ready(function () {
     exprt.initializeSelectBox();
     exprt.getRegisterPage("/admin/export/statistics/register");
     stats.getStatistics();
-    stats.setSystemSelectBox();
     stats.changePageSize();
     stats.downloadExcel();
     stats.downloadTemplateExcel();

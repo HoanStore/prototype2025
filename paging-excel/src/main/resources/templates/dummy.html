@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin_layout}">
+<head>
+    <title>프로토타입</title>
+    <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
+    <script th:src="@{/js/prototype/prototype.js}"></script>
+</head>
+<div class="cont_box" layout:fragment="content">
+
+    <div class="navi">
+        <p><span class="home">Home</span><span>&gt</span>프로토타입</span><span>&gt;</span><strong>dummy</strong></p>
+    </div>
+    <div class="cont">
+        <h3>프로토타입</h3>
+        <div class="tb_cont">
+            <span class="tb_txt">전체 <strong>0</strong> 건</span>
+            <select name="perPageNum" id="perPageNum">
+                <option value="-1" >전체</option>
+                <option value="10" selected/>10</option>
+                <option value="30" />30</option>
+                <option value="50" />50</option>
+                <option value="100"/>100</option>
+            </select>
+
+            <div class="search_area">
+                <select name="keyfield">
+                    <option value="all">전체</option>
+                    <option value="type1">type1</option>
+                    <option value="type2">type2</option>
+                    <option value="type3">type3</option>
+                </select>
+
+                <input id="keywordInput" name="keyword" type="text" title="검색어" class="input_txt" />
+                <a class="btn_search" href="javascript:stats.getStatistics()">검색</a>
+            </div>
+        </div>
+
+        <div class="btn_top">
+            <a class="btn_red btn_excel_upload" href="javascript:void(0);" >엑셀 업로드</a>
+            <a class="btn_red btn_excel_download" href="javascript:void(0);" >엑셀 다운로드</a>
+        </div>
+
+        <form id="form" class="my-form" enctype="multipart/form-data">
+            <input type="file" id="excelFileUpload" name="excelFileUpload"  accept=".xlsx, .xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none"/>
+        </form>
+
+        <table class="table_list">
+            <caption>프로토타입</caption>
+            <colgroup>
+                <col style="width: auto" />
+                <col style="width: auto" />
+                <col style="width: auto" />
+                <col style="width: auto" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">제목</th>
+                <th scope="col">내용</th>
+                <th scope="col">생성시기</th>
+            </tr>
+            </thead>
+            <tbody id="tmt_body">
+            </tbody>
+        </table>
+
+<!--        <div class="btn"><a class="btn_red" href="javascript:void(0);" id="btn_register">등록</a></div>-->
+        <div id="div_page" class="page_list">
+        </div>
+    </div>
+</div>
+</html>

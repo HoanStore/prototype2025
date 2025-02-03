@@ -38,18 +38,20 @@ $(document).ready(function() {
 
 function getMenuCode(_idx) {
 
-    return common.ajaxRequest({
+    return $.ajax({
         url: '/cmm/getMenuCode',
-        type: 'post',
-        data: JSON.stringify({language: "HIHI"}),
-        dataType: 'json',
-        callBack: function (_res) {
+        method: 'POST',
+        data: JSON.stringify({language: "kr"}),
+        contentType: 'application/json',
+        success: function (_res) {
             const menuList = [];
             _res.forEach(function (arr) {
                 menuList.push(arr.menu);
             });
             drawsidebar(menuList);
-            //setMenuHighLight();
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
         }
     });
 

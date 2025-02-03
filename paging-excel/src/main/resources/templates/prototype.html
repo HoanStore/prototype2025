@@ -5,17 +5,17 @@
       xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/admin_layout}">
 <head>
-    <title>수출통계 및 현황</title>
+    <title>프로토타입</title>
     <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
     <script th:src="@{/js/prototype/prototype.js}"></script>
 </head>
 <div class="cont_box" layout:fragment="content">
 
     <div class="navi">
-        <p><span class="home">Home</span><span>&gt</span>프로토타입</span><span>&gt;</span><strong>수출통계 및 현황</strong></p>
+        <p><span class="home">Home</span><span>&gt</span>프로토타입</span><span>&gt;</span><strong>1</strong></p>
     </div>
     <div class="cont">
-        <h3>수출통계 및 현황</h3>
+        <h3>프로토타입</h3>
         <div class="tb_cont">
             <span class="tb_txt">전체 <strong>0</strong> 건</span>
             <select name="perPageNum" id="perPageNum">
@@ -29,28 +29,17 @@
             <div class="search_area">
                 <select name="keyfield">
                     <option value="all">전체</option>
-                    <option value="continent">대륙/국가</option>
-                    <option value="companyname">기업명</option>
-                    <option value="content">내용</option>
-                    <option value="its_system">시스템 구분</option>
+                    <option value="type1">type1</option>
+                    <option value="type2">type2</option>
+                    <option value="type3">type3</option>
                 </select>
 
                 <input id="keywordInput" name="keyword" type="text" title="검색어" class="input_txt" />
-                <select name="keyword" id="its_system" style="display: none;">
-                    <option value="교통관리">교통관리</option>
-                    <option value="대중교통">대중교통</option>
-                    <option value="전자지불">전자지불</option>
-                    <option value="교통정보유통">교통정보유통</option>
-                    <option value="지능형차량도로">지능형차량도로</option>
-                    <option value="화물운송">화물운송</option>
-                    <option value="여행정보제공">여행정보제공</option>
-                </select>
                 <a class="btn_search" href="javascript:stats.getStatistics()">검색</a>
             </div>
         </div>
 
         <div class="btn_top">
-            <a class="btn_red btn_excel_template_download" href="javascript:void(0);" >엑셀 업로드 샘플</a>
             <a class="btn_red btn_excel_upload" href="javascript:void(0);" >엑셀 업로드</a>
             <a class="btn_red btn_excel_download" href="javascript:void(0);" >엑셀 다운로드</a>
         </div>
@@ -79,7 +68,7 @@
             </tbody>
         </table>
 
-        <div class="btn"><a class="btn_red" href="javascript:void(0);" id="btn_register">등록</a></div>
+<!--        <div class="btn"><a class="btn_red" href="javascript:void(0);" id="btn_register">등록</a></div>-->
         <div id="div_page" class="page_list">
         </div>
     </div>
