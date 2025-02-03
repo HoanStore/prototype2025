@@ -36,6 +36,11 @@ const stats = (function () {
         });
     }
 
+    const downloadTemplateExcel = function () {
+        $(".btn_excel_template_download").click(function () {
+            location.href = `/getPrototypeExcelTemplate`;
+        });
+    }
 
     const downloadExcel = function () {
         $(".btn_excel_download").click(function () {
@@ -60,28 +65,37 @@ const stats = (function () {
 
         const formData = new FormData($('#form')[0]);
 
-        common.ajaxFormRequest({
-            type: 'post',
-            url: '/export/statistics/uploadExcel',
-            data: formData,
+
+        $.ajax({
+            url: '/getPrototypeList/uploadExcel',
+            method: 'POST',
             processData: false,
             contentType: false,
+            data: formData,
             dataType: 'json',
-            callBack: function (_res) {
+            success: function(_res) {
                 console.log(_res)
                 if (_res.isSuccess) {
                     alert("엑셀 업로드를 완료하였습니다.");
-                    window.location.href = '/admin/export/statistics';
+                    window.location.href = '/';
                 } else {
                     alert("엑셀 업로드중 에러가 발생하였습니다.");
                 }
+
+                },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
             }
         });
+
+
+
     }
 
     return {
         getStatistics : getStatistics,
         changePageSize : changePageSize,
+        downloadTemplateExcel : downloadTemplateExcel,
         downloadExcel : downloadExcel,
         onclickUploaBtn : onclickUploaBtn,
         changeUploadExcel : changeUploadExcel
@@ -94,6 +108,7 @@ $(document).ready(function () {
     exprt.getRegisterPage("/admin/export/statistics/register");
     stats.getStatistics();
     stats.changePageSize();
+    stats.downloadTemplateExcel();
     stats.downloadExcel();
     stats.changeUploadExcel();
     stats.onclickUploaBtn();

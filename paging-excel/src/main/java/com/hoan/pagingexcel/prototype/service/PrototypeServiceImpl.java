@@ -1,6 +1,7 @@
 package com.hoan.pagingexcel.prototype.service;
 
 import com.hoan.pagingexcel.common.domain.PageVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import com.hoan.pagingexcel.prototype.mapper.PrototypeMapper;
@@ -33,6 +34,13 @@ public class PrototypeServiceImpl implements PrototypeService{
     @Override
     public List<PrototypeExcelVO> getPrototypeListExcel() {
         return prototypeMapper.getPrototypeListExcel();
+    }
+
+    @Override
+    public void registerExcel(List<PrototypeExcelUploadVO> prototypeExcelUploadVOS) {
+        for (PrototypeExcelUploadVO prototypeExcelVO : prototypeExcelUploadVOS) {
+            prototypeMapper.registerPrototypeData(prototypeExcelVO);
+        }
     }
 
     public PageVO getpageVO(PageVO requestPage){

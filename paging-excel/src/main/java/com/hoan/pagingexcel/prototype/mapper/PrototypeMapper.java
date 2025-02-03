@@ -1,6 +1,7 @@
 package com.hoan.pagingexcel.prototype.mapper;
 
 import com.hoan.pagingexcel.common.domain.PageVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,4 +15,6 @@ public interface PrototypeMapper {
     List<PrototypeVO> getPrototypeList(PageVO pageVO);
 
     List<PrototypeExcelVO> getPrototypeListExcel();
+
+    void registerPrototypeData(PrototypeExcelUploadVO prototypeExcelVO);
 }

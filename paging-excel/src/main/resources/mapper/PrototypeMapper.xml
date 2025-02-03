@@ -27,4 +27,8 @@
         order by id desc
     </select>
 
+    <insert id="registerPrototypeData" parameterType="com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO">
+        INSERT INTO board (title, content) VALUES (#{title}, #{content});
+    </insert>
+
 </mapper>
