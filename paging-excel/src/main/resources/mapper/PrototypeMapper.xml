@@ -20,4 +20,11 @@
         order by prots.id desc LIMIT #{pageSize} OFFSET (#{curPage}-1) * 10
     </select>
 
+    <select id="getPrototypeListExcel" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO"
+            parameterType="com.hoan.pagingexcel.common.domain.PageVO">
+        SELECT *
+        FROM(<include refid="PROTOTYPE_SQL"/>)
+        order by id desc
+    </select>
+
 </mapper>

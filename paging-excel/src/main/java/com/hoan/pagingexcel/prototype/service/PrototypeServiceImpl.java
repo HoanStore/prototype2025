@@ -1,6 +1,7 @@
 package com.hoan.pagingexcel.prototype.service;
 
 import com.hoan.pagingexcel.common.domain.PageVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import com.hoan.pagingexcel.prototype.mapper.PrototypeMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,11 @@ public class PrototypeServiceImpl implements PrototypeService{
         response.put("data", prototypeList);
 
         return response;
+    }
+
+    @Override
+    public List<PrototypeExcelVO> getPrototypeListExcel() {
+        return prototypeMapper.getPrototypeListExcel();
     }
 
     public PageVO getpageVO(PageVO requestPage){

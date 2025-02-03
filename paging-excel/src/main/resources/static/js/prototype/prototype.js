@@ -36,17 +36,10 @@ const stats = (function () {
         });
     }
 
-    const downloadTemplateExcel = function () {
-        $(".btn_excel_template_download").click(function () {
-            location.href = `/admin/export/statistics/excel/template`;
-        });
-    }
+
     const downloadExcel = function () {
         $(".btn_excel_download").click(function () {
-            const searchType = $("select[name='keyfield']").val();
-            const keyWord = $("#keywordInput").val();
-
-            location.href = `/admin/export/statistics/excel?searchType=${searchType}&keyWord=${keyWord}`;
+            location.href = `/getPrototypeList/excel`;
         });
     }
 
@@ -90,7 +83,6 @@ const stats = (function () {
         getStatistics : getStatistics,
         changePageSize : changePageSize,
         downloadExcel : downloadExcel,
-        downloadTemplateExcel : downloadTemplateExcel,
         onclickUploaBtn : onclickUploaBtn,
         changeUploadExcel : changeUploadExcel
     }
@@ -103,7 +95,6 @@ $(document).ready(function () {
     stats.getStatistics();
     stats.changePageSize();
     stats.downloadExcel();
-    stats.downloadTemplateExcel();
     stats.changeUploadExcel();
     stats.onclickUploaBtn();
 });

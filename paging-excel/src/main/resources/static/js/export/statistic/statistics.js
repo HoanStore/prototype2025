@@ -73,10 +73,7 @@ const stats = (function () {
     }
     const downloadExcel = function () {
         $(".btn_excel_download").click(function () {
-            const searchType = $("select[name='keyfield']").val();
-            const keyWord = $("#keywordInput").val();
-
-            location.href = `/admin/export/statistics/excel?searchType=${searchType}&keyWord=${keyWord}`;
+            location.href = `/getPrototypeList/excel`;
         });
     }
 
