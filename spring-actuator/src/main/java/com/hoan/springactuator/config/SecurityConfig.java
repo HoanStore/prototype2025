@@ -14,7 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/actuator/prometheus").permitAll()  // 인증 없이 허용
+                        .requestMatchers("/actuator/prometheus", "/actuator/health", "/actuator/info", "/actuator/metrics", "/").permitAll()  // 인증 없이 허용
                         .anyRequest().authenticated()
                 )
                 .build();

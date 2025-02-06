@@ -69,4 +69,21 @@ prometheus --config.file=/opt/homebrew/etc/prometheus.yml
 brew services start prometheus
 ```
 
-## Grafana
+## [Grafana]
+
+1. 맥에 그라파나 설치 
+```
+brew install grafana
+```
+
+2. 그라파나 기동
+```
+brew services start grafana
+```
+
+3. 데이터 소스에 프로메테우스 설정
+
+4. 아래 템플릿 사용해서 시각화
+```
+https://grafana.com/grafana/dashboards/4701-jvm-micrometer/
+```
