@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenLayers + Todo List</title>
+
+  <script th:src="@{/lib/jquery-3.6.0.js}"></script>
+  <script th:src="@{/lib/ol.js}"></script>
+  <script th:src="@{/js/map.js}"></script>
+
+  <link rel="stylesheet" th:href="@{/lib/ol.css}">
+  <link rel="stylesheet" th:href="@{/css/map.css}">
+</head>
+<body>
+
+<div class="container">
+  <!-- 왼쪽: 지도 & 입력 폼 -->
+  <div class="left-panel">
+    <div id="map"></div>
+    <input type="text" id="taskInput" placeholder="할 일">
+    <input type="time" id="startTime">
+    <input type="time" id="endTime">
+    <input type="text" id="location" placeholder="장소">
+    <button id="addTask">추가</button>
+  </div>
+
+  <!-- 오른쪽: 할 일 목록 -->
+  <div class="right-panel">
+    <h3>Todo List</h3>
+    <table id="taskTable">
+      <thead>
+      <tr>
+        <th>완료</th>
+        <th>할 일</th>
+        <th>시작 시간</th>
+        <th>종료 시간</th>
+        <th>장소</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
