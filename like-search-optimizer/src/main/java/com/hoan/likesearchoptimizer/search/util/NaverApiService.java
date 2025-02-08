@@ -1,8 +1,8 @@
 package com.hoan.likesearchoptimizer.search.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -20,9 +20,15 @@ import java.util.Map;
 @Service
 public class NaverApiService {
 
-    private static final String BASE_URL = "https://openapi.naver.com/v1/search/errata.json?query=";
-    private static final String CLIENT_ID = "OZyjoBCzXlk2nkK9nyVs";
-    private static final String CLIENT_SECRET = "xwHBCEPXLZ";
+
+    @Value("${naver.api-base-url}")
+    private String BASE_URL;
+
+    @Value("${naver.api-client-id}")
+    private String CLIENT_ID;
+
+    @Value("${naver.api-client-secret}")
+    private String CLIENT_SECRET;
 
     public String getCorrectSpelling(String query)  {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
@@ -46,8 +52,9 @@ public class NaverApiService {
         try {
             JsonNode rootNode = objectMapper.readTree(json);
             value = rootNode.get("errata").asText();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            System.err.println("오류: " + e.getMessage());
+            return "";
         }
 
         return value;
@@ -69,7 +76,8 @@ public class NaverApiService {
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
-            throw new RuntimeException("API 요청과 응답 실패", e);
+            System.err.println("API 요청과 응답 실패 " + e.getMessage());
+            return "";
         } finally {
             con.disconnect();
         }
