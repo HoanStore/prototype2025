@@ -2,7 +2,8 @@ package com.hoan.likesearchoptimizer.search.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import com.hoan.likesearchoptimizer.search.config.NaverApiProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -17,28 +18,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class NaverApiService {
 
-
-    @Value("${naver.api-base-url}")
-    private String BASE_URL;
-
-    @Value("${naver.api-client-id}")
-    private String CLIENT_ID;
-
-    @Value("${naver.api-client-secret}")
-    private String CLIENT_SECRET;
+    private final NaverApiProperties naverApiProperties;
 
     public String getCorrectSpelling(String query)  {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-        String apiURL = BASE_URL + encodedQuery;
+        String apiURL = naverApiProperties.getUrl() + encodedQuery;
         Map<String, String> requestHeaders = new HashMap<>();
 
         requestHeaders.put("Accept", "*/*");
         requestHeaders.put("User-Agent", "Mozilla/5.0");
-        requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);
-        requestHeaders.put("X-Naver-Client-Secret", CLIENT_SECRET);
+        requestHeaders.put("X-Naver-Client-Id", naverApiProperties.getId());
+        requestHeaders.put("X-Naver-Client-Secret", naverApiProperties.getSecret());
         String responseBody = get(apiURL,requestHeaders);
 
         return extractValueInJson(responseBody);
