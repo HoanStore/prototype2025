@@ -16,6 +16,9 @@ https://openapi.naver.com/v1/search/webkr.json?query=%EB%95%B0%EA%B8%B0&display=
 
 ## Vault 사용
 
+[참고자료] 
+[https://spring.io/guides/gs/vault-config]
+
 1. 도커로 실행 (brew로 설치 안 됨)
 ```
 docker run --cap-add=IPC_LOCK -d \
