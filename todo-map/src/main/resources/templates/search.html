@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Places Autocomplete + OpenLayers</title>
+  <script src="https://unpkg.com/ol@latest/dist/ol.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPTpo3_scSZqJCE0t9Dmw8ElQzfLn4HE8&libraries=places"></script>
+  <style>
+    #map { width: 100%; height: 500px; }
+    #searchBox { width: 300px; padding: 10px; position: absolute; top: 10px; left: 10px; z-index: 1000; background: white; }
+  </style>
+</head>
+<body>
+<input id="searchBox" type="text" placeholder="장소 검색 (예: 서울시청)">
+<div id="map"></div>
+
+<script>
+  let map = new ol.Map({
+    target: 'map',
+    layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
+    view: new ol.View({ center: ol.proj.fromLonLat([126.9784, 37.5665]), zoom: 12 }) // 서울 중심
+  });
+
+  let markerLayer = new ol.layer.Vector({ source: new ol.source.Vector() });
+  map.addLayer(markerLayer);
+
+  function addMarker(lon, lat) {
+    markerLayer.getSource().clear();
+    let feature = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+    });
+    feature.setStyle(new ol.style.Style({
+      image: new ol.style.Icon({ src: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png' })
+    }));
+    markerLayer.getSource().addFeature(feature);
+  }
+
+  function initAutocomplete() {
+    let input = document.getElementById('searchBox');
+    let autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', function () {
+      let place = autocomplete.getPlace();
+      if (!place.geometry) {
+        alert("장소를 찾을 수 없습니다.");
+        return;
+      }
+      let loc = place.geometry.location;
+      addMarker(loc.lng(), loc.lat());
+      map.getView().setCenter(ol.proj.fromLonLat([loc.lng(), loc.lat()]));
+      map.getView().setZoom(15);
+    });
+  }
+
+  window.onload = initAutocomplete;
+</script>
+</body>
+</html>

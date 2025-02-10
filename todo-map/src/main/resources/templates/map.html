@@ -8,6 +8,7 @@
   <script th:src="@{/lib/jquery-3.6.0.js}"></script>
   <script th:src="@{/lib/ol.js}"></script>
   <script th:src="@{/js/map.js}"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPTpo3_scSZqJCE0t9Dmw8ElQzfLn4HE8&libraries=places"></script>
 
   <link rel="stylesheet" th:href="@{/lib/ol.css}">
   <link rel="stylesheet" th:href="@{/css/map.css}">
@@ -18,12 +19,18 @@
   <!-- 왼쪽: 지도 & 입력 폼 -->
   <div class="left-panel">
     <div id="map"></div>
+
     <input type="text" id="taskInput" placeholder="할 일">
     <input type="time" id="startTime">
     <input type="time" id="endTime">
-    <input type="text" id="location" placeholder="장소">
+    <input id="searchBox" type="text" placeholder="장소 검색 (예: 서울시청)">
+    <input id="lon" type="text" hidden>
+    <input id="lat" type="text" hidden>
     <button id="addTask">추가</button>
   </div>
+
+
+
 
   <!-- 오른쪽: 할 일 목록 -->
   <div class="right-panel">
@@ -36,6 +43,8 @@
         <th>시작 시간</th>
         <th>종료 시간</th>
         <th>장소</th>
+        <th>lon</th>
+        <th>lat</th>
       </tr>
       </thead>
       <tbody></tbody>

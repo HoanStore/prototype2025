@@ -11,4 +11,11 @@ public class MapController {
     public String getMap() {
         return "map";
     }
+
+
+
+    @GetMapping( "/searchTest")
+    public String getSearchTest() {
+        return "search";
+    }
 }
