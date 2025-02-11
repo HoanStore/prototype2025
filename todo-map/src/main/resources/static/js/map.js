@@ -3,6 +3,7 @@ let map, markerLayer;
 $(document).on('click', '#taskTable tbody tr', function() {
     const cells = $(this).find('td');
     const rowData = {
+        id: Date.now(),
         task: $(cells[1]).text(),
         startTime: $(cells[2]).text(),
         endTime: $(cells[3]).text(),
@@ -11,7 +12,7 @@ $(document).on('click', '#taskTable tbody tr', function() {
         lat: $(cells[6]).text()
     };
 
-    addMarkerAndFocus(rowData);
+    focusMarker(rowData);
 });
 
 $(document).ready(function () {
@@ -20,24 +21,28 @@ $(document).ready(function () {
 
     // 할 일 추가 기능
     $('#addTask').on('click', function () {
-        const task = $('#taskInput').val().trim();
-        const startTime = $('#startTime').val();
-        const endTime = $('#endTime').val();
-        const location = $('#searchBox').val().trim();
-        const lon = $("#lon").val().trim();
-        const lat = $("#lat").val().trim();
+        const rowData = {
+            id: Date.now(),
+            task: $('#taskInput').val().trim(),
+            startTime: $('#startTime').val(),
+            endTime: $('#endTime').val(),
+            location: $('#searchBox').val().trim(),
+            lon: $("#lon").val().trim(),
+            lat: $("#lat").val().trim()
+        };
 
+        addMarkerAndFocus(rowData);
 
-        if (task && startTime && endTime && location) {
+        if (rowData.task && rowData.startTime && rowData.endTime && rowData.location) {
             const row = `
-                <tr>
+                <tr data-id="${rowData.id}">
                     <td><input type="checkbox" class="task-checkbox"></td>
-                    <td>${task}</td>
-                    <td>${startTime}</td>
-                    <td>${endTime}</td>
-                    <td>${location}</td>
-                    <td>${lon}</td>
-                    <td>${lat}</td>
+                    <td>${rowData.task}</td>
+                    <td>${rowData.startTime}</td>
+                    <td>${rowData.endTime}</td>
+                    <td>${rowData.location}</td>
+                    <td>${rowData.lon}</td>
+                    <td>${rowData.lat}</td>
                 </tr>
             `;
 
@@ -55,25 +60,98 @@ $(document).ready(function () {
 
     // 체크박스 체크 시 취소선 적용
     $('#taskTable').on('change', '.task-checkbox', function () {
+        const row = $(this).closest('tr');
+        const rowId = row.data('id');
+        const markerColor = row.hasClass('completed') ? 'red' : 'blue';
+
         $(this).closest('tr').toggleClass('completed');
+        changeMarkerColor(rowId, markerColor);
     });
 });
 
+
 function addMarkerAndFocus (rowData) {
-    addMarker(rowData.lon, rowData.lat);
-    focusMarker(rowData.lon, rowData.lat);
+    removeTempMarkers();
+
+    addMarker(rowData, rowData.id);
+    addToolTip(rowData);
+    focusMarker(rowData);
 }
 
-function addMarker(lon, lat) {
-    markerLayer.getSource().clear();
+function addMarker(rowData, id="temp") {
+    // markerLayer.getSource().clear();
+
     let feature = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([rowData.lon, rowData.lat])),
+        id: id
     });
     feature.setStyle(new ol.style.Style({
         image: new ol.style.Icon({ src: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png' })
     }));
     markerLayer.getSource().addFeature(feature);
 }
+
+function removeTempMarkers() {
+    // 모든 마커를 가져옴
+    let features = markerLayer.getSource().getFeatures();
+
+    // "temp" ID를 가진 마커들만 삭제
+    features.forEach(feature => {
+        if (feature.get('id') === 'temp') {
+            markerLayer.getSource().removeFeature(feature);
+        }
+    });
+}
+
+
+function changeMarkerColor(id, color) {
+    let features = markerLayer.getSource().getFeatures();
+    const newMarkerColor = `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
+    console.log(newMarkerColor);
+
+    features.forEach(myFeature => {
+        console.log(myFeature.get('id'), id);
+
+        if (myFeature.get('id') === id) {
+            myFeature.setStyle(new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: newMarkerColor
+                })
+            }));
+        }
+    });
+}
+
+function addToolTip(rowData) {
+    // 기존 툴팁 제거
+    // if (window.tooltipOverlay) {
+    //     map.removeOverlay(window.tooltipOverlay);
+    // }
+
+    // 툴팁 생성
+    let tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerHTML = `Task: ${rowData.task} <br>Time: ${rowData.startTime} ~ ${rowData.endTime}`;
+    tooltip.style.position = "absolute";
+    tooltip.style.background = "white";
+    tooltip.style.padding = "5px 10px"; // 좌우 여백 추가
+    tooltip.style.border = "1px solid black";
+    tooltip.style.borderRadius = "4px";
+    tooltip.style.fontSize = "12px";
+    tooltip.style.display = "block"; // 항상 표시됨
+    tooltip.style.whiteSpace = "nowrap"; // 한 줄로 유지
+
+    let overlay = new ol.Overlay({
+        element: tooltip,
+        positioning: "bottom-center",
+        offset: [5, -55],
+        position: ol.proj.fromLonLat([rowData.lon, rowData.lat]) // 마커 위치에 배치
+    });
+
+    map.addOverlay(overlay);
+    window.tooltipOverlay = overlay;
+}
+
 
 function initMap() {
     map = new ol.Map({
@@ -100,15 +178,24 @@ function initMap() {
             document.getElementById('lon').value = loc.lng();
             document.getElementById('lat').value = loc.lat();
 
-            addMarker(loc.lng(), loc.lat());
-            focusMarker(loc.lng(), loc.lat());
+            const rowData = {
+                lon: loc.lng(),
+                lat: loc.lat()
+            };
+
+            /**
+             * TODO
+             * 여기서 작업 다시 시작!
+             */
+            addMarker(rowData);
+            focusMarker(rowData);
         });
     }
 
     window.onload = initAutocomplete;
 }
 
-function focusMarker(lon, lat) {
-    map.getView().setCenter(ol.proj.fromLonLat([lon, lat]));
+function focusMarker(rowData) {
+    map.getView().setCenter(ol.proj.fromLonLat([rowData.lon, rowData.lat]));
     map.getView().setZoom(15);
 }
