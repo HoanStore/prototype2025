@@ -9,5 +9,8 @@ spring:
   sql:
     init:
       mode: always
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 server:
   port: 9001

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebFlux Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #chat-box { width: 100%; height: 300px; border: 1px solid #ccc; overflow-y: auto; padding: 10px; }
+    #message-input { width: 80%; padding: 5px; }
+    #send-btn { padding: 5px; }
+  </style>
+</head>
+<body>
+<h2>WebFlux Chat</h2>
+<div id="chat-box"></div>
+<input type="text" id="message-input" placeholder="Type a message...">
+<button id="send-btn">Send</button>
+<script>
+  const socket = new WebSocket("ws://localhost:9001/chat");
+  const chatBox = document.getElementById("chat-box");
+  const messageInput = document.getElementById("message-input");
+  const sendBtn = document.getElementById("send-btn");
+
+  socket.onmessage = (event) => {
+    const msg = document.createElement("div");
+    msg.textContent = event.data;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  };
+
+  sendBtn.onclick = () => {
+    if (messageInput.value.trim() !== "") {
+      socket.send(messageInput.value);
+      messageInput.value = "";
+    }
+  };
+
+  messageInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") sendBtn.click();
+  });
+</script>
+</body>
+</html>
