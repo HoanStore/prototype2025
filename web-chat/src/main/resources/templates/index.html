@@ -22,23 +22,38 @@
   const messageInput = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
 
-  socket.onmessage = (event) => {
+  // 채팅창에 메시지 추가
+  const addMessageToChat = (message, isOwnMessage) => {
     const msg = document.createElement("div");
-    msg.textContent = event.data;
+    msg.textContent = message;
+    msg.style.color = isOwnMessage ? "blue" : "black"; // 본인이 보낸 메시지는 파란색
     chatBox.appendChild(msg);
     chatBox.scrollTop = chatBox.scrollHeight;
   };
 
+
+  // 메시지 보내기
   sendBtn.onclick = () => {
-    if (messageInput.value.trim() !== "") {
-      socket.send(messageInput.value);
+    const message = messageInput.value.trim();
+    if (message !== "" && socket.readyState === WebSocket.OPEN) {
+      socket.send(message); // WebSocket이 열려 있을 때만 메시지 전송
       messageInput.value = "";
+    } else if (socket.readyState === WebSocket.CLOSED) {
+      console.error("WebSocket 연결이 닫혀 있음. 다시 연결하세요.");
     }
   };
+
 
   messageInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") sendBtn.click();
   });
+
+  // 서버로부터 메시지 수신
+  socket.onmessage = (event) => {
+    addMessageToChat(event.data, false);
+  };
+
+
 </script>
 </body>
 </html>
