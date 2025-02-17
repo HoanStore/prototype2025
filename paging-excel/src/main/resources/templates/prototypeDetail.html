@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin_layout}">
+<head>
+    <title>프로토타입</title>
+    <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
+    <script th:src="@{/js/prototype/prototypeDetail.js}"></script>
+</head>
+<div class="cont_box" layout:fragment="content">
+
+    <div class="navi">
+        <p><span class="home">Home</span><span>&gt</span>수출정보관리</span><span>&gt;</span><strong>수출사례</strong></p>
+    </div>
+    <div class="cont" >
+        <h3>프로토타입 상세 페이지</h3>
+        <div class="view_box" th:data-bno="${infos.id}" th:data-attflId="${infos?.attflId}">
+            <table class="view_title">
+                <caption>수출사례 상세보기</caption>
+                <colgroup>
+                    <col style="width: 10%"  />
+                    <col style="width: 40%" />
+                    <col style="width: 10%" />
+                    <col style="" />
+                </colgroup>
+
+                <tr>
+                    <th class="tit" colspan="4" th:text="${infos.title}" />
+                </tr>
+                <tr>
+                    <th colspan="1">내용</th>
+                    <td colspan="3" th:text="${infos.content}"/>
+                </tr>
+                <tr>
+                    <td class="txt_c" colspan="4">
+                        <th:block th:each="file : ${infos?.fileVO?.fileDetailList}">
+                            <th:block th:if="${file.isImage == true}">
+                                <div class="img_box">
+                                    <img th:src="@{/cmm/getFile(attflId=${file.attflId}, attflSeq=${file.attflSeq})}"
+                                         th:alt="${file.ortxFileNm}" width="390px" height="250px">
+                                    <p class="txt_c" colspan="4" th:utext="${file.attflIstc}"></p>
+                                </div>
+                            </th:block>
+                        </th:block>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="col hist">작성자</th>
+                    <td class="col hist" th:text="proto"/>
+                    <th class="col hist">작성일</th>
+                    <td class="col hist"th:text="${infos.createdAt}" />
+                </tr>
+
+            </table>
+
+            <div class="board_view_btn">
+                <a class="btn_red" href="javascript:void(0);" id="btn_modify">수정</a>
+                <a class="btn_gray" href="#">삭제</a>
+                <a class="btn_navy" href="javascript:void(0);" id="btn_list">목록</a>
+            </div>
+
+        </div><!-- //view_box -->
+
+
+    </div><!-- //cont -->
+
+    <div class="popup">
+    </div>
+</div>
+</html>

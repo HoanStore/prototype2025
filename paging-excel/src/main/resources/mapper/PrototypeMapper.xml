@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hoan.pagingexcel.prototype.mapper.PrototypeMapper">
     <sql id="PROTOTYPE_SQL">
-        SELECT id, title, content, CREATED_AT as createdAt
+        SELECT id, title, content, attflId, CREATED_AT as createdAt
         FROM board
     </sql>
 
@@ -13,12 +13,25 @@
         FROM(<include refid="PROTOTYPE_SQL"/>) prots
     </select>
 
+    <select id="getPrototype" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeVO"
+            parameterType="com.hoan.pagingexcel.common.domain.PageVO">
+        SELECT *
+        FROM(<include refid="PROTOTYPE_SQL"/>) prots
+        WHERE prots.id = #{bno}
+    </select>
+
+
     <select id="getPrototypeList" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeVO"
             parameterType="com.hoan.pagingexcel.common.domain.PageVO">
         SELECT *
         FROM(<include refid="PROTOTYPE_SQL"/>) prots
         order by prots.id desc LIMIT #{pageSize} OFFSET (#{curPage}-1) * 10
     </select>
+
+    <insert id="registerPrototype" parameterType="com.hoan.pagingexcel.prototype.domain.PrototypeVO">
+        INSERT INTO board (title, content, attflId)
+        VALUES (#{title}, #{content}, #{attflId})
+    </insert>
 
     <select id="getPrototypeListExcel" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO"
             parameterType="com.hoan.pagingexcel.common.domain.PageVO">

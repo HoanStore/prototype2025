@@ -7,15 +7,15 @@ import com.hoan.pagingexcel.common.util.excel_module.excel.ExcelFile;
 import com.hoan.pagingexcel.common.util.excel_module.excel.onesheet.OneSheetExcelFile;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import com.hoan.pagingexcel.prototype.service.PrototypeService;
 import com.poiji.bind.Poiji;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -47,9 +47,49 @@ public class PrototypeController {
         return "dummy";
     }
 
+    @GetMapping("/prototypes1-1/{id}")
+    public String getPrototype(@PathVariable String id,
+                              ModelMap modelMap) {
+
+
+        PageVO pageVO = PageVO.builder()
+                .bno(id)
+                .build();
+
+        PrototypeVO prototypeVO = prototypeService.getPrototype(pageVO);
+
+        modelMap.addAttribute("infos", prototypeVO);
+
+        return "prototypeDetail";
+    }
+
+    @GetMapping("/register")
+    public String getPrototypeRegister(ModelMap modelMap) {
+
+
+
+        return "prototypeRegister";
+    }
+
+
     @PostMapping("/getPrototypeList")
     public ResponseEntity getPrototypeList(@RequestBody PageVO requestPage) {
         HashMap<String,Object> response = prototypeService.getPrototypeList(requestPage);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity registerExample(@ModelAttribute PrototypeVO exampleVO) {
+        HashMap<String,Object> response = new HashMap<>();
+
+        try {
+            prototypeService.registerPrototype(exampleVO);
+            response.put("isSuccess", true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.put("isSuccess", false);
+        }
+
         return ResponseEntity.ok(response);
     }
 

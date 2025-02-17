@@ -10,11 +10,16 @@ import java.util.List;
 
 @Mapper
 public interface PrototypeMapper {
+
     int getPrototypeListCnt(PageVO pageVO);
+
+    PrototypeVO getPrototype(PageVO pageVO);
 
     List<PrototypeVO> getPrototypeList(PageVO pageVO);
 
     List<PrototypeExcelVO> getPrototypeListExcel();
 
     void registerPrototypeData(PrototypeExcelUploadVO prototypeExcelVO);
+
+    void registerPrototype(PrototypeVO prototypeVO);
 }

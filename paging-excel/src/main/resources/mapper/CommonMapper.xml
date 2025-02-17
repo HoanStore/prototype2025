@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoan.pagingexcel.common.mapper.CommonMapper">
+
+    <insert id="insertFile">
+        insert into attfl_mgmt
+            (attfl_id, mgmt_type, use_yn, rgst_dttm)
+        values (#{attflId}, #{mgmtType}, 'Y', now())
+    </insert>
+
+    <insert id="insertFileDetail">
+        insert into attfl_mgmt_detl
+        (attfl_id, attfl_seq, file_mgmt_type, file_mgmt_detl_type, file_save_path, save_file_nm, ortx_file_nm, file_mg,
+         file_type_info, attfl_istc, use_yn, rgst_dttm)
+        values (
+                   #{attflId},
+                   (select coalesce(max(attfl_seq), 0) + 1 as attfl_seq from attfl_mgmt_detl where attfl_id = #{attflId}),
+                   #{fileMgmtType},
+                   #{fileMgmtDetlType},
+                   #{fileSavePath},
+                   #{saveFileNm},
+                   #{ortxFileNm},
+                   #{fileMg},
+                   #{fileTypeInfo},
+                   #{attflIstc},
+                   'Y',
+                   now()
+               )
+    </insert>
+
+    <select id="selectNewAttflId">
+        WITH max_file_id AS (
+            SELECT MAX(CAST(SUBSTRING(attfl_id, 4) AS INTEGER)) AS max_sequence_number
+            FROM attfl_mgmt
+            WHERE attfl_id LIKE #{mgmtType} || '%'
+        )
+        SELECT
+            #{mgmtType} || LPAD(COALESCE((SELECT max_sequence_number + 1 FROM max_file_id), 1)::text, 10, '0') AS attflId
+    </select>
+
+
+    <select id="selectFileByAttflId" resultType="com.hoan.pagingexcel.common.domain.FileVO">
+        select attfl_id, mgmt_type, use_yn, rgst_dttm
+        from attfl_mgmt
+        where attfl_id = #{attflId} and use_yn = 'Y'
+    </select>
+
+
+    <select id="selectFileDetailsByAttflId" resultType="com.hoan.pagingexcel.common.domain.FileDetailVO">
+        select attfl_id, attfl_seq, file_mgmt_type, file_mgmt_detl_type, file_save_path, save_file_nm,
+               ortx_file_nm, file_mg, file_type_info, attfl_istc, use_yn, rgst_dttm
+        from attfl_mgmt_detl
+        where attfl_id = #{attflId}
+          and use_yn = 'Y'
+        order by attfl_seq asc
+    </select>
+
+    <select id="selectFileNmAndPath" resultType="com.hoan.pagingexcel.common.domain.FileDetailVO">
+        select attfl_id, attfl_seq, file_mgmt_type, file_mgmt_detl_type, file_save_path, save_file_nm,
+               ortx_file_nm, file_mg, file_type_info, attfl_istc, use_yn, rgst_dttm
+        from attfl_mgmt_detl
+        where attfl_id = #{attflId} and attfl_seq = #{attflSeq}
+        order by attfl_seq asc
+    </select>
+
+
+
+
+</mapper>

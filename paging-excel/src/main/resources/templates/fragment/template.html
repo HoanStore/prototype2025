@@ -31,7 +31,10 @@
         {{#data}}
         <tr>
             <td>{{id}}</td>
-            <td>{{title}}</td>
+            <td>
+                {{#title}}<a href="/prototypes1-1/{{id}}">{{title}}</a>{{/title}}
+                {{^title}}<a href="/prototypes1-1/{{id}}">-</a>{{/title}}
+            </td>
             <td>{{content}}</td>
             <td>{{createdAt}}</td>
         </tr>

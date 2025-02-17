@@ -87,9 +87,13 @@ const stats = (function () {
                 console.error('Error:', error);
             }
         });
+    }
 
-
-
+    const getRegisterPage = function (redirectUrl) {
+        $("#btn_register").click(function () {
+            const lang = $('.lang.on').data('lang');
+            window.location.href = redirectUrl+"?lang="+lang;
+        });
     }
 
     return {
@@ -98,14 +102,15 @@ const stats = (function () {
         downloadTemplateExcel : downloadTemplateExcel,
         downloadExcel : downloadExcel,
         onclickUploaBtn : onclickUploaBtn,
-        changeUploadExcel : changeUploadExcel
+        changeUploadExcel : changeUploadExcel,
+        getRegisterPage : getRegisterPage,
     }
 })();
 
 $(document).ready(function () {
     exprt.keyPressListener(stats.getStatistics);
     exprt.initializeSelectBox();
-    exprt.getRegisterPage("/admin/export/statistics/register");
+    exprt.getRegisterPage("/register");
     stats.getStatistics();
     stats.changePageSize();
     stats.downloadTemplateExcel();
