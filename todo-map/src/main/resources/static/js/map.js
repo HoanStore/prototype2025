@@ -79,7 +79,6 @@ function addMarkerAndFocus (rowData) {
 }
 
 function addMarker(rowData, id="temp") {
-    // markerLayer.getSource().clear();
 
     let feature = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([rowData.lon, rowData.lat])),
@@ -92,10 +91,7 @@ function addMarker(rowData, id="temp") {
 }
 
 function removeTempMarkers() {
-    // 모든 마커를 가져옴
     let features = markerLayer.getSource().getFeatures();
-
-    // "temp" ID를 가진 마커들만 삭제
     features.forEach(feature => {
         if (feature.get('id') === 'temp') {
             markerLayer.getSource().removeFeature(feature);

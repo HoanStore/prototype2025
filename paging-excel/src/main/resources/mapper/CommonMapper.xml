@@ -15,7 +15,7 @@
          file_type_info, attfl_istc, use_yn, rgst_dttm)
         values (
                    #{attflId},
-                   (select coalesce(max(attfl_seq), 0) + 1 as attfl_seq from attfl_mgmt_detl where attfl_id = #{attflId}),
+                   (select coalesce(max(attfl_seq), 0) + 1 as attfl_seq from attfl_mgmt_detl),
                    #{fileMgmtType},
                    #{fileMgmtDetlType},
                    #{fileSavePath},
@@ -63,8 +63,5 @@
         where attfl_id = #{attflId} and attfl_seq = #{attflSeq}
         order by attfl_seq asc
     </select>
-
-
-
 
 </mapper>

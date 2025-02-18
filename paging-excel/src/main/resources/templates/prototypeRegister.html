@@ -49,6 +49,22 @@
                             </div>
                         </td>
                     </tr>
+
+                    <tr>
+                        <th class="last">파일 첨부</th>
+                        <td class="last">
+                            <p>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_addfile.gif}" alt="파일첨부"
+                                                                   id="btn_file" class="btn_file" /></a>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_cantran.gif}" alt="삭제"
+                                                                   id="btn_noticedel"/></a> 파일 첨부는 최대 10개까지 가능합니다.
+                            </p>
+                            <div class="file_list" id="dragDiv">
+                                <ul class="notice">
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
                 <div id="filelist" style="display:none">
                 </div>

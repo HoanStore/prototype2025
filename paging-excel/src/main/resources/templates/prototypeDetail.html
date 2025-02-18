@@ -33,6 +33,22 @@
                     <th colspan="1">내용</th>
                     <td colspan="3" th:text="${infos.content}"/>
                 </tr>
+
+                <tr>
+                    <th class="col">첨부파일</th>
+                    <td class="last">
+                        <th:block th:each="file : ${infos?.fileVO?.fileDetailList}">
+                            <th:block th:if="${file.isImage == false}">
+                                <a class="btn_file" th:href="@{/cmm/getFile(attflId=${file.attflId}, attflSeq=${file.attflSeq})}">
+                                    <img th:src="@{'/images/common/file_zip.png'}" alt="파일" />
+                                    <span th:text="${file?.ortxFileNm}"></span>
+                                </a>
+                            </th:block>
+                        </th:block>
+                    </td>
+                </tr>
+
+
                 <tr>
                     <td class="txt_c" colspan="4">
                         <th:block th:each="file : ${infos?.fileVO?.fileDetailList}">
