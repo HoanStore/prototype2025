@@ -74,6 +74,14 @@ public class PrototypeServiceImpl implements PrototypeService{
         prototypeMapper.registerPrototype(prototypeVO);
     }
 
+    @Override
+    public void deletePrototype(String id, String value, String attflId) {
+        if(attflId != null && !attflId.equals("undefined")) {
+            commonService.deleteAllFiles(attflId);
+        }
+        prototypeMapper.deletePrototype(id);
+    }
+
     public PageVO getpageVO(PageVO requestPage){
 
         PageVO pageVO = PageVO.builder()

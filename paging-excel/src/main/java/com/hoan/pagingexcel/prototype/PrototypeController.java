@@ -2,6 +2,7 @@ package com.hoan.pagingexcel.prototype;
 
 
 import com.hoan.pagingexcel.common.domain.PageVO;
+import com.hoan.pagingexcel.common.enums.MgmtTypes;
 import com.hoan.pagingexcel.common.mapper.CommonMapper;
 import com.hoan.pagingexcel.common.util.excel_module.excel.ExcelFile;
 import com.hoan.pagingexcel.common.util.excel_module.excel.onesheet.OneSheetExcelFile;
@@ -47,11 +48,9 @@ public class PrototypeController {
         return "dummy";
     }
 
-    @GetMapping("/prototypes1-1/{id}")
+    @GetMapping("/prototype1-1/{id}")
     public String getPrototype(@PathVariable String id,
                               ModelMap modelMap) {
-
-
         PageVO pageVO = PageVO.builder()
                 .bno(id)
                 .build();
@@ -65,9 +64,6 @@ public class PrototypeController {
 
     @GetMapping("/register")
     public String getPrototypeRegister(ModelMap modelMap) {
-
-
-
         return "prototypeRegister";
     }
 
@@ -87,6 +83,20 @@ public class PrototypeController {
             response.put("isSuccess", true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            response.put("isSuccess", false);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/prototype1-1/{id}")
+    public ResponseEntity deleteExample(@PathVariable String id, @RequestParam String attflId) {
+        HashMap<String,Object> response = new HashMap<>();
+
+        try {
+            prototypeService.deletePrototype(id, MgmtTypes.EXAMPLES.getValue(), attflId);
+            response.put("isSuccess", true);
+        } catch (Exception e) {
             response.put("isSuccess", false);
         }
 

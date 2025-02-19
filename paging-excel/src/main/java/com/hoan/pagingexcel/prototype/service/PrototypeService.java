@@ -19,4 +19,6 @@ public interface PrototypeService {
     void registerExcel(List<PrototypeExcelUploadVO> prototypeExcelUploadVOS);
 
     void registerPrototype(PrototypeVO exampleVO);
+
+    void deletePrototype(String id, String value, String attflId);
 }

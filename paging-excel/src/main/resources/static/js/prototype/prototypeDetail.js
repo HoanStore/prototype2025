@@ -27,16 +27,20 @@ const ex = (function () {
 
     const deleteEx = function () {
         $(".pop .pop_box .btn").click(function () {
-            const bno = $(".view_box").data("bno");
+            const id = $(".view_box").data("bno");
             const attflId = $(".view_box").data("attflid");
 
-            common.ajaxRequest({
-                url: '/export/examples/'+bno +'?attflId=' + attflId,
-                type: 'delete',
-                callBack: function (_res) {
-                    window.location.href = '/admin/export/examples';
-                }
-            });
+            fetch(`/prototype1-1/${id}?attflId=${attflId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/';
+                    } else {
+                        console.error('Delete request failed');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         })
     }
 

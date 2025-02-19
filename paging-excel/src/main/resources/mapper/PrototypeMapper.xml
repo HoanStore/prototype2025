@@ -44,4 +44,8 @@
         INSERT INTO board (title, content) VALUES (#{title}, #{content});
     </insert>
 
+    <delete id="deletePrototype" parameterType="String">
+        DELETE FROM board WHERE id = #{id}
+    </delete>
+
 </mapper>

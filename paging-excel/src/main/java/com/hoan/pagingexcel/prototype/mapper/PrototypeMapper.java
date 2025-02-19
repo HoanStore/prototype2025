@@ -22,4 +22,6 @@ public interface PrototypeMapper {
     void registerPrototypeData(PrototypeExcelUploadVO prototypeExcelVO);
 
     void registerPrototype(PrototypeVO prototypeVO);
+
+    void deletePrototype(String id);
 }
