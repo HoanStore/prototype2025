@@ -67,6 +67,20 @@ public class PrototypeController {
         return "prototypeRegister";
     }
 
+    @GetMapping("/modify/{bno}")
+    public String getPrototypeModify(@PathVariable String bno,
+                                   ModelMap modelMap) {
+
+        PageVO pageVO = PageVO.builder()
+                .bno(bno)
+                .build();
+
+        PrototypeVO prototype = prototypeService.getPrototype(pageVO);
+        modelMap.addAttribute("infos", prototype);
+
+        return "prototypeModify";
+    }
+
 
     @PostMapping("/getPrototypeList")
     public ResponseEntity getPrototypeList(@RequestBody PageVO requestPage) {

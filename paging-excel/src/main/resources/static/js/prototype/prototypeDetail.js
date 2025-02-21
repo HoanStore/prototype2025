@@ -18,10 +18,10 @@ const ex = (function () {
 
     const modifyEx = function () {
         $("#btn_modify").click(function () {
-            const bno = $(".view_box").data("bno");
-            let lang = $(".view_box").data("lang");
+            debugger;
 
-            window.location.href = '/admin/export/examples/modify/'+bno+'?lang='+lang;
+            const bno = $(".view_box").data("bno");
+            window.location.href = '/modify/'+bno;
         })
     }
 

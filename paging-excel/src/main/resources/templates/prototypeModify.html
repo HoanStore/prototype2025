@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin_layout}">
+<head>
+    <title>프로토타입 등록</title>
+    <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
+    <script th:src="@{/js/prototype/prototypeModify.js}"></script>
+</head>
+
+
+<div class="cont_box" layout:fragment="content" th:data-bno="${bno}">
+    <div class="navi">
+        <p><span class="home">Home</span><span>&gt</span>프로토타입 수정</span><span>&gt;</span><strong>수출사례</strong></p>
+    </div>
+    <div class="cont">
+        <h3>수출사례 등록</h3>
+        <form role="form" name="form" id="form">
+            <div class="write_box">
+                <input type="file" id="file" multiple="" style="display: none">
+                <table class="write">
+                    <caption>수출사례 신규/수정</caption>
+                    <colgroup>
+                        <col style="width: 10%"  />
+                        <col style=""  />
+                    </colgroup>
+
+                    <tr>
+                        <th scope="col">제 목</th>
+                        <td col><input name="title" id="title" type="text" title="제목" class="w_100per" th:value="${infos.title}" /></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td><input name="content" id="ordercontent" type="text" title="수주내용" class="w_100per" th:value="${infos.content}"/></td>
+                    </tr>
+                    <tr>
+                        <th>이미지 첨부</th>
+                        <td>
+                            <p>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_addfile.gif}" alt="파일첨부" id="btn_image" class="btn_file"/></a>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_cantran.gif}" alt="삭제" id="btn_imagedel" /></a> 이미지 첨부는 최대 2장까지 가능합니다.
+                            </p>
+                            <div class="file_list" id="dragBox">
+                                <ul class="image">
+                                    <th:block th:each="file : ${infos?.fileVO?.fileDetailList}" th:if="${infos?.attflId}">
+                                        <th:block th:if="${file?.isImage}">
+                                            <li id="image_list">
+                                                <input class="savedImg" type="checkbox" th:data-seq="${file.attflSeq}"/>
+                                                <span th:text="${file?.ortxFileNm}"></span>
+                                            </li>
+                                        </th:block>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th class="last">파일 첨부</th>
+                        <td class="last">
+                            <p>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_addfile.gif}" alt="파일첨부"
+                                                                   id="btn_file" class="btn_file" /></a>
+                                <a href="javascript:void(0);"><img th:src="@{/images/common/btn_cantran.gif}" alt="삭제"
+                                                                   id="btn_noticedel"/></a> 파일 첨부는 최대 10개까지 가능합니다.
+                            </p>
+                            <div class="file_list" id="dragDiv">
+                                <ul class="notice">
+                                    <th:block th:each="file : ${infos?.fileVO?.fileDetailList}" th:if="${infos?.attflId}">
+                                        <th:block th:unless="${file?.isImage}">
+                                            <li id="file_list">
+                                                <input class="savedImg" type="checkbox" th:data-seq="${file.attflSeq}"/>
+                                                <span th:text="${file?.ortxFileNm}"></span>
+                                            </li>
+                                        </th:block>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="filelist" style="display:none">
+                </div>
+                <div class="board_view_btn">
+                    <a class="btn_gray" href="javascript:void(0);" id="btn_preview">미리보기</a>
+                    <a class="btn_red" href="javascript:void(0);" id="btn_register">수정</a>
+                    <a class="btn_gray" href="javascript:void(0);" id="btn_list">취소</a>
+                </div>
+            </div><!-- //view_box -->
+        </form>
+    </div><!-- //cont -->
+
+    <div class="pop pop_view" style="display: none;">
+        <div class="pop_box">
+            <p class="tit">미리보기</p>
+            <div class="p_cont">
+
+                <div class="view_box">
+
+                    <table class="view_title">
+                        <caption>수출사례 상세보기</caption>
+                        <colgroup>
+                            <col style="width: 10%"  />
+                            <col style="width: 90%"  />
+                        </colgroup>
+
+                        <tr>
+                            <th class="tit" colspan="4" id="popup_title"></th>
+                        </tr>
+                        <tr>
+                            <th col>내용</th>
+                            <td col id="popup_ordercontent"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" id="popup_attachment" class="txt_c">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="board_view_btn">
+                        <a class="btn_gray" href="javascript:void(0);" id="btn_check">확인</a>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="btn_close"><img th:src="@{/images/common/btn_popup_cloes.gif}" alt="닫기" /></a>
+        </div>
+    </div>
+</div>
+</html>
