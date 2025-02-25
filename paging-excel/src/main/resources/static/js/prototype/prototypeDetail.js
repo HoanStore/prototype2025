@@ -18,8 +18,6 @@ const ex = (function () {
 
     const modifyEx = function () {
         $("#btn_modify").click(function () {
-            debugger;
-
             const bno = $(".view_box").data("bno");
             window.location.href = '/modify/'+bno;
         })

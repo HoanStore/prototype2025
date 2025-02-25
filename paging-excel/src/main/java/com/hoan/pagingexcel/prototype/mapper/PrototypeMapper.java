@@ -24,4 +24,6 @@ public interface PrototypeMapper {
     void registerPrototype(PrototypeVO prototypeVO);
 
     void deletePrototype(String id);
+
+    void modifyPrototype(PrototypeVO prototypeVO);
 }

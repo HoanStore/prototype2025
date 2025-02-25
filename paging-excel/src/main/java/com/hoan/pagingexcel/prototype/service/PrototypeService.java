@@ -21,4 +21,6 @@ public interface PrototypeService {
     void registerPrototype(PrototypeVO exampleVO);
 
     void deletePrototype(String id, String value, String attflId);
+
+    void modifyPrototype(PrototypeVO prototypeVO);
 }

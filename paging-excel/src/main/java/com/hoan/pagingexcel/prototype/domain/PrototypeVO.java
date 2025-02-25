@@ -1,6 +1,5 @@
 package com.hoan.pagingexcel.prototype.domain;
 
-import com.hoan.pagingexcel.common.domain.FileDetailVO;
 import com.hoan.pagingexcel.common.domain.FileVO;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

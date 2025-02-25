@@ -103,6 +103,20 @@ public class PrototypeController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/modify")
+    public ResponseEntity modifyPrototype(@ModelAttribute PrototypeVO prototypeVO) {
+        HashMap<String,Object> response = new HashMap<>();
+
+        try {
+            prototypeService.modifyPrototype(prototypeVO);
+            response.put("isSuccess", true);
+        } catch (Exception e) {
+            response.put("isSuccess", false);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/prototype1-1/{id}")
     public ResponseEntity deleteExample(@PathVariable String id, @RequestParam String attflId) {
         HashMap<String,Object> response = new HashMap<>();

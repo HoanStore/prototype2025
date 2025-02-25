@@ -108,6 +108,12 @@ const exRgsr = (function () {
 
             const formData = new FormData($("#form")[0]);
 
+            const bno = $(".cont_box").data("bno");
+            const attflId = $(".cont_box").data("attflid");
+
+            formData.append("id",bno);
+            formData.append("attflId",attflId);
+
             // file list 추가
             const fileLists = $("#file")[0].files;
             for (let i = 0; i < fileLists.length; i++) {
@@ -115,8 +121,8 @@ const exRgsr = (function () {
             }
 
             $.ajax({
-                url: '/register',
-                method: 'POST',
+                url: '/modify',
+                method: 'PUT',
                 data: formData,
                 processData: false,    // FormData 객체는 jQuery가 처리하지 않도록 설정
                 contentType: false,    // `multipart/form-data` 헤더는 자동으로 처리되도록 설정

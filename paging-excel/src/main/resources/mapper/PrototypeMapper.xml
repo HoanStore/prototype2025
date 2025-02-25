@@ -44,6 +44,15 @@
         INSERT INTO board (title, content) VALUES (#{title}, #{content});
     </insert>
 
+    <update id="modifyPrototype" parameterType="com.hoan.pagingexcel.prototype.domain.PrototypeVO">
+        UPDATE board
+        SET
+            title = #{title},
+            content = #{content},
+            attflid = #{attflId}
+        WHERE id = #{id}
+    </update>
+
     <delete id="deletePrototype" parameterType="String">
         DELETE FROM board WHERE id = #{id}
     </delete>

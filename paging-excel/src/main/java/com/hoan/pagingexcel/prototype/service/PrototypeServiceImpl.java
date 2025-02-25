@@ -11,9 +11,11 @@ import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import com.hoan.pagingexcel.prototype.mapper.PrototypeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -80,6 +82,20 @@ public class PrototypeServiceImpl implements PrototypeService{
             commonService.deleteAllFiles(attflId);
         }
         prototypeMapper.deletePrototype(id);
+    }
+
+    @Transactional
+    @Override
+    public void modifyPrototype(PrototypeVO prototypeVO) {
+
+        prototypeVO.setAttflId(commonService.uploadFiles(prototypeVO.getFileLists(), prototypeVO.getAttflId(), ""));
+
+        if(prototypeVO.getAttflId() != null && !prototypeVO.getAttflId().equals("undefined")) {
+            commonService.deleteTargetFiles(
+                    Objects.requireNonNull(prototypeVO.getAttflId()), prototypeVO.getDeleteFileList());
+        }
+
+        prototypeMapper.modifyPrototype(prototypeVO);
     }
 
     public PageVO getpageVO(PageVO requestPage){
