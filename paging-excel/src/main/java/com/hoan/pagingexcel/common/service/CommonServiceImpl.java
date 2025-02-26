@@ -99,6 +99,7 @@ public class CommonServiceImpl implements CommonService{
             FileDetailVO fileDetailVO = uploadFile(multipartFiles.get(i));
 
             fileDetailVO.setAttflId(attachFileId);
+            fileDetailVO.setFileMgmtDetlType(fileMetaInfo.getFileMgmtDetailType().getValue());
             if (attflIstcArray.length > i && attflIstcArray[i] != null) {
                 fileDetailVO.setAttflIstc(attflIstcArray[i]);
             }
@@ -244,7 +245,8 @@ public class CommonServiceImpl implements CommonService{
 
         if(deleteFileList != null){
             deleteFileList.forEach(attflSeq -> {
-                fileUtil.deleteFiles(commonMapper.selectFileNmAndPath(attflId, attflSeq));
+                FileDetailVO fileDetailVO = commonMapper.selectFileNmAndPath(attflId, attflSeq);
+                fileUtil.deleteFiles(fileDetailVO);
                 commonMapper.deleteFileDetail(attflId, attflSeq);
             });
         }

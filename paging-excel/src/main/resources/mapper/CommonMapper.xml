@@ -64,4 +64,14 @@
         order by attfl_seq asc
     </select>
 
+    <delete id="deleteFile">
+        delete from attfl_mgmt
+        where attfl_id = #{attflId}
+    </delete>
+
+    <delete id="deleteFileDetail">
+        delete from attfl_mgmt_detl
+        where attfl_id = #{attflId} and attfl_seq = #{attflSeq}
+    </delete>
+
 </mapper>

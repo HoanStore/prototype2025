@@ -1,5 +1,6 @@
 package com.hoan.pagingexcel.common.domain;
 
+import com.hoan.pagingexcel.common.enums.FileMgmtDetailType;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -21,6 +22,7 @@ public class FileVO {
     private Timestamp altrDttm; // 수정_일시
 
     private List<FileDetailVO> fileDetailList;
+    private FileMgmtDetailType fileMgmtDetailType;
     private String fileMgmtDetail;
 
 

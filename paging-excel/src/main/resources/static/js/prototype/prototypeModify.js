@@ -1,4 +1,5 @@
 const dataTransfer = new DataTransfer();
+const deleteFileList = [];
 
 const exRgsr = (function () {
 
@@ -119,6 +120,12 @@ const exRgsr = (function () {
             for (let i = 0; i < fileLists.length; i++) {
                 formData.append("fileLists", fileLists[i]);
             }
+
+            // 삭제할 파일의 seq 번호 추가
+            for (let i = 0; i < deleteFileList.length; i++) {
+                formData.append("deleteFileList", deleteFileList[i]);
+            }
+
 
             $.ajax({
                 url: '/modify',

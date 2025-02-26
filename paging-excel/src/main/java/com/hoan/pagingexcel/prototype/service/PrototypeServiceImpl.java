@@ -2,6 +2,7 @@ package com.hoan.pagingexcel.prototype.service;
 
 import com.hoan.pagingexcel.common.domain.FileVO;
 import com.hoan.pagingexcel.common.domain.PageVO;
+import com.hoan.pagingexcel.common.enums.FileMgmtDetailType;
 import com.hoan.pagingexcel.common.enums.MgmtTypes;
 import com.hoan.pagingexcel.common.service.CommonService;
 import com.hoan.pagingexcel.common.util.file.FileUtil;
@@ -68,6 +69,7 @@ public class PrototypeServiceImpl implements PrototypeService{
     @Override
     public void registerPrototype(PrototypeVO prototypeVO) {
         String attflId = commonService.registerFiles(prototypeVO.getFileLists(), FileVO.builder().mgmtType(MgmtTypes.EXAMPLES.getValue())
+                .fileMgmtDetailType(FileMgmtDetailType.COMMON_IMAGE)
                 .attflIstc(prototypeVO.getAttflIstc())
                 .build());
 
@@ -78,10 +80,11 @@ public class PrototypeServiceImpl implements PrototypeService{
 
     @Override
     public void deletePrototype(String id, String value, String attflId) {
+        prototypeMapper.deletePrototype(id);
+
         if(attflId != null && !attflId.equals("undefined")) {
             commonService.deleteAllFiles(attflId);
         }
-        prototypeMapper.deletePrototype(id);
     }
 
     @Transactional
