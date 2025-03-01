@@ -153,11 +153,31 @@ function initMap() {
     map = new ol.Map({
         target: 'map',
         layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
-        view: new ol.View({ center: ol.proj.fromLonLat([126.9784, 37.5665]), zoom: 12 })
+        view: new ol.View({ center: ol.proj.fromLonLat([126.9784, 37.5665]), zoom: 12 }) // 기본 중심: 서울
     });
 
     markerLayer = new ol.layer.Vector({ source: new ol.source.Vector() });
     map.addLayer(markerLayer);
+
+    // 현재 위치 가져오기
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const lon = position.coords.longitude;
+                const lat = position.coords.latitude;
+                const userLocation = { lon, lat };
+
+                // 지도 중심 이동 및 마커 추가
+                focusMarker(userLocation);
+                addMarker(userLocation);
+            },
+            function (error) {
+                console.error("위치 정보를 가져올 수 없습니다:", error);
+            }
+        );
+    } else {
+        console.error("Geolocation을 지원하지 않는 브라우저입니다.");
+    }
 
     function initAutocomplete() {
         let input = document.getElementById('searchBox');
@@ -179,10 +199,6 @@ function initMap() {
                 lat: loc.lat()
             };
 
-            /**
-             * TODO
-             * 여기서 작업 다시 시작!
-             */
             addMarker(rowData);
             focusMarker(rowData);
         });
@@ -190,6 +206,7 @@ function initMap() {
 
     window.onload = initAutocomplete;
 }
+
 
 function focusMarker(rowData) {
     map.getView().setCenter(ol.proj.fromLonLat([rowData.lon, rowData.lat]));
