@@ -58,16 +58,61 @@ $(document).ready(function () {
         }
     });
 
-    // 체크박스 체크 시 취소선 적용
-    $('#taskTable').on('change', '.task-checkbox', function () {
-        const row = $(this).closest('tr');
-        const rowId = row.data('id');
-        const markerColor = row.hasClass('completed') ? 'red' : 'blue';
 
-        $(this).closest('tr').toggleClass('completed');
-        changeMarkerColor(rowId, markerColor);
+    $('#taskTable').on('change', '.task-checkbox', function () {
+        const checkbox = $(this);
+        const row = checkbox.closest('tr');
+        const rowId = row.data('id');
+        const taskLon = parseFloat(row.find('td').eq(5).text());
+        const taskLat = parseFloat(row.find('td').eq(6).text());
+
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const userLon = position.coords.longitude;
+                const userLat = position.coords.latitude;
+
+                const distance = getDistanceFromLatLonInMeters(userLat, userLon, taskLat, taskLon);
+                console.log("distacne : "+distance);
+
+                if (distance <= 500) {
+                    row.toggleClass('completed double-strike').removeClass('single-strike');
+                } else {
+                    row.toggleClass('completed single-strike').removeClass('double-strike');
+                }
+                changeMarkerColor(rowId, row.hasClass('completed') ? 'blue' : 'red');
+
+
+            }, function (error) {
+                console.error("위치 정보를 가져올 수 없습니다:", error);
+                alert('위치 정보를 가져올 수 없습니다.');
+                checkbox.prop('checked', false);
+            });
+        } else {
+            alert('Geolocation을 지원하지 않는 브라우저입니다.');
+            checkbox.prop('checked', false);
+        }
     });
+
+
+    // 두 좌표 간 거리 계산 함수 (Haversine formula)
+    function getDistanceFromLatLonInMeters(lat1, lon1, lat2, lon2) {
+        const R = 6371000; // 지구 반지름(m)
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // 거리(m)
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+    }
 });
+
+
+
 
 
 function addMarkerAndFocus (rowData) {

@@ -57,3 +57,12 @@ th {
     text-decoration: line-through;
     color: #999;
 }
+
+
+.single-strike td {
+    text-decoration: line-through; /* 한 줄 취소선 */
+}
+
+.double-strike td {
+    text-decoration: line-through double; /* 두 줄 취소선 */
+}
