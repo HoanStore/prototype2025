@@ -204,6 +204,52 @@ function initMap() {
     markerLayer = new ol.layer.Vector({ source: new ol.source.Vector() });
     map.addLayer(markerLayer);
 
+
+    // OpenLayers 기본 줌 컨트롤 내부에 버튼 추가
+    const zoomControl = $('.ol-zoom'); // 기본 줌 컨트롤 찾기
+    const locateBtn = $('<button class="ol-locate" type="button" title="현재 위치로 이동">📍</button>');
+
+    // 스타일 적용 (기본 줌 버튼과 유사하게 만들기)
+    locateBtn.css({
+        display: 'block',
+        width: '22px',
+        height: '22px',
+        background: '#fff',
+        border: '1px solid rgba(0,0,0,0.2)',
+        cursor: 'pointer',
+        fontSize: '16px',
+        textAlign: 'center',
+        lineHeight: '24px',
+    });
+
+    // 버튼을 기본 줌 컨트롤 내부에 추가
+    zoomControl.append(locateBtn);
+
+
+    // 버튼 클릭 시 현재 위치 이동
+    locateBtn.on('click', function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const lon = position.coords.longitude;
+                    const lat = position.coords.latitude;
+                    map.getView().animate({
+                        center: ol.proj.fromLonLat([lon, lat]),
+                        zoom: 15,
+                        duration: 1000,
+                    });
+                },
+                function (error) {
+                    console.error('Geolocation error:', error);
+                    alert('위치를 가져올 수 없습니다.');
+                }
+            );
+        } else {
+            alert('Geolocation이 지원되지 않습니다.');
+        }
+    });
+
+
     // 현재 위치 가져오기
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
