@@ -13,9 +13,9 @@ public class MapController {
     }
 
 
-
     @GetMapping( "/searchTest")
     public String getSearchTest() {
         return "search";
     }
+
 }

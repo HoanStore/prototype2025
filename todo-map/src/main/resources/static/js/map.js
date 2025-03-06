@@ -1,19 +1,8 @@
+const todos = [];
+const baseURL = "https://graphhopper.com/api/1/route";
+const apiKey = "ec535555-da4a-41a7-b2d4-ba935453a7e1";
+
 let map, markerLayer;
-
-$(document).on('click', '#taskTable tbody tr', function() {
-    const cells = $(this).find('td');
-    const rowData = {
-        id: Date.now(),
-        task: $(cells[1]).text(),
-        startTime: $(cells[2]).text(),
-        endTime: $(cells[3]).text(),
-        location: $(cells[4]).text(),
-        lon: $(cells[5]).text(),
-        lat: $(cells[6]).text()
-    };
-
-    focusMarker(rowData);
-});
 
 $(document).ready(function () {
 
@@ -30,6 +19,7 @@ $(document).ready(function () {
             lon: $("#lon").val().trim(),
             lat: $("#lat").val().trim()
         };
+
 
         addMarkerAndFocus(rowData);
 
@@ -112,16 +102,38 @@ $(document).ready(function () {
 });
 
 
+$(document).on('click', '#taskTable tbody tr', function() {
+    const cells = $(this).find('td');
+    const rowData = {
+        id: Date.now(),
+        task: $(cells[1]).text(),
+        startTime: $(cells[2]).text(),
+        endTime: $(cells[3]).text(),
+        location: $(cells[4]).text(),
+        lon: $(cells[5]).text(),
+        lat: $(cells[6]).text()
+    };
 
+    focusMarker(rowData);
+});
 
 
 function addMarkerAndFocus (rowData) {
+    addTodo(rowData);
     removeTempMarkers();
 
     addMarker(rowData, rowData.id);
     addToolTip(rowData);
     focusMarker(rowData);
+
+    drawLine();
 }
+
+function addTodo(rowData) {
+    todos.push(rowData);
+}
+
+
 
 function addMarker(rowData, id="temp") {
 
@@ -202,6 +214,8 @@ function initMap() {
     });
 
     markerLayer = new ol.layer.Vector({ source: new ol.source.Vector() });
+    markerLayer.setZIndex(10);
+
     map.addLayer(markerLayer);
 
 
@@ -302,4 +316,62 @@ function initMap() {
 function focusMarker(rowData) {
     map.getView().setCenter(ol.proj.fromLonLat([rowData.lon, rowData.lat]));
     map.getView().setZoom(15);
+}
+
+function drawLine() {
+    if(todos.length < 2) {
+        return;
+    }
+    const todosSize = todos.length;
+    const url = getGraphHopperRouteURL([todos[todosSize-1].lon, todos[todosSize-1].lat], [todos[todosSize-2].lon, todos[todosSize-2].lat]);
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const coordinates = data.paths[0].points.coordinates.map(coord => ol.proj.fromLonLat([coord[0], coord[1]]));
+
+            // 실제 도로를 따라 선(LineString) 생성
+            const route = new ol.geom.LineString(coordinates);
+
+            const routeFeature = new ol.Feature({
+                geometry: route,
+            });
+
+            routeFeature.setStyle(new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: sizeToColor(todosSize),
+                    width: 4
+                })
+            }));
+
+            const vectorSource = new ol.source.Vector({
+                features: [routeFeature]
+            });
+
+            const vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+
+            map.addLayer(vectorLayer);
+        });
+}
+
+
+
+function getGraphHopperRouteURL(start, end) {
+    return `${baseURL}?point=${start[1]},${start[0]}&point=${end[1]},${end[0]}&profile=car&locale=ko&points_encoded=false&key=${apiKey}`;
+}
+
+function sizeToColor(size) {
+    const modSize = size % 4; // 2, 3, 4, 5 값이 반복되도록 설정
+    switch(modSize) {
+        case 2:
+            return 'rgba(70, 130, 180, 1)';
+        case 3:
+            return 'rgba(100, 149, 237, 1)'; // 조금 짙은 하늘색
+        case 0:
+            return 'rgba(70, 130, 180, 1)'; // 짙은 하늘색
+        default:
+            return 'rgba(70, 130, 180, 0.8)'; // 투명도 적용된 짙은 하늘색
+    }
 }
