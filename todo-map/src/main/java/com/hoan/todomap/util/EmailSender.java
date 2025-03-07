@@ -1,13 +1,17 @@
 package com.hoan.todomap.util;
 
-import java.util.Properties;
+import org.springframework.stereotype.Component;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
+@Component
 public class EmailSender {
 
-    public static void sendEmail(String fromEmail, String password, String toEmail, String subject, String body) {
+
+    public void sendEmail(String fromEmail, String password, String toEmail, String subject, String body) {
         // 이메일 서버 설정
         String host = "smtp.gmail.com";
         String port = "587";
@@ -42,18 +46,6 @@ public class EmailSender {
             e.printStackTrace();
             System.out.println("Failed to send email.");
         }
-    }
-
-    public static void main(String[] args) {
-        // 보내는 사람 이메일과 비밀번호, 받는 사람 이메일 설정
-        String fromEmail = "bluepack701@gmail.com"; // 보내는 이메일 주소
-        String password = "yguxtgtwnprcydmz"; // 이메일 계정 비밀번호
-        String toEmail = "ktm1296@naver.com"; // 받는 이메일 주소
-        String subject = "Test Email from Java SMTP";
-        String body = "This is a test email sent via Java using SMTP.";
-
-        // 이메일 보내기
-        sendEmail(fromEmail, password, toEmail, subject, body);
     }
 }
 

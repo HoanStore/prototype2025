@@ -7,19 +7,21 @@ let map, markerLayer;
 $(document).ready(function () {
 
     initMap();
+    setInterval(checkAndSendEmails, 60000);
 
     // 할 일 추가 기능
     $('#addTask').on('click', function () {
         const rowData = {
             id: Date.now(),
+            completed: false,
             task: $('#taskInput').val().trim(),
             startTime: $('#startTime').val(),
             endTime: $('#endTime').val(),
             location: $('#searchBox').val().trim(),
             lon: $("#lon").val().trim(),
-            lat: $("#lat").val().trim()
+            lat: $("#lat").val().trim(),
+            sendMail: false
         };
-
 
         addMarkerAndFocus(rowData);
 
@@ -117,6 +119,17 @@ $(document).on('click', '#taskTable tbody tr', function() {
     focusMarker(rowData);
 });
 
+$(document).on("change", ".task-checkbox", function () {
+    const id = $(this).closest("tr").data("id"); // tr에서 data-id 가져오기
+    const todo = todos.find(todo => todo.id === id); // 해당 id의 todo 찾기
+
+
+
+    if (todo) {
+        todo.completed = $(this).prop("checked"); // 체크 여부에 따라 completed 값 변경
+        console.log("Updated todos:", todos); // 업데이트된 todos 배열 확인
+    }
+});
 
 function addMarkerAndFocus (rowData) {
     addTodo(rowData);
@@ -356,8 +369,6 @@ function drawLine() {
         });
 }
 
-
-
 function getGraphHopperRouteURL(start, end) {
     return `${baseURL}?point=${start[1]},${start[0]}&point=${end[1]},${end[0]}&profile=car&locale=ko&points_encoded=false&key=${apiKey}`;
 }
@@ -374,4 +385,59 @@ function sizeToColor(size) {
         default:
             return 'rgba(70, 130, 180, 0.8)'; // 투명도 적용된 짙은 하늘색
     }
+}
+
+function checkAndSendEmails() {
+    const currentTime = getCurrentTime();
+
+    todos.forEach(todo => {
+        if (!todo.completed && !todo.sendMail && todo.endTime < currentTime) {
+            sendMailToUser(todo);
+            // 메일을 보낸 후 sendMail 값을 true로 업데이트
+            todo.sendMail = true;
+        }
+    });
+}
+
+// 메일 보내는 함수
+function sendMailToUser(todo) {
+    const subject = "아래 예정된 작업이 완료되지 않았습니다.";
+    const body = `
+        장소: ${todo.location}
+        시간: ${todo.startTime}~${todo.endTime}
+        할일: ${todo.task}
+    `;
+
+    // 실제 메일 보내는 함수 (예시)
+    console.log(`메일 제목: ${subject}`);
+    console.log(`메일 내용: ${body}`);
+
+    // 메일 보내는 로직은 여기서 구현 (예: SMTP 서버와 연동)
+    const emailData = {
+        subject : subject,
+        body: body,
+    }
+
+    $.ajax({
+        url: '/api/email',   // 이메일 전송 API 주소
+        type: 'POST',        // POST 방식
+        contentType: 'application/json', // JSON 형식으로 보낸다고 명시
+        data: JSON.stringify(emailData), // 데이터를 JSON 형식으로 변환하여 보냄
+        success: function (response) {
+            console.log("이메일 발송에 성공했습니다.");
+        },
+        error: function (xhr, status, error) {
+            console.log("이메일 발송에 실패했습니다. " + error);
+        }
+    });
+
+}
+
+
+// 현재 시간 계산 함수
+function getCurrentTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`; // "HH:mm" 형식
 }
