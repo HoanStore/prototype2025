@@ -9,3 +9,14 @@
  - (A 지점에서 B 지점까지의 거리가 1시간인데, A 지점에서의 작업이 01:00에 끝나고, B 지점에서의 작업이 01:30에 시작해서는 안 됨)
 6. 정해진 시간에 정해진 장소에 있는지 체크하는 버튼을 제공한다. 
 
+
+```
+docker run -d --name smtp-server -p 25:25 -p 587:587 -p 465:465 \
+  -e MAILNAME=mail.yourdomain.com \
+  -e RELAY_NETWORKS='*' \
+  namshi/smtp
+```
+
+
+
+

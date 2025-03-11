@@ -8,7 +8,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Component
-public class EmailSender {
+public class GoogleEmailSender {
 
 
     public void sendEmail(String fromEmail, String password, String toEmail, String subject, String body) {

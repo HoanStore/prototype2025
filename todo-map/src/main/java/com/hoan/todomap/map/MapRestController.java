@@ -1,7 +1,7 @@
 package com.hoan.todomap.map;
 
 import com.hoan.todomap.dto.EmailRequest;
-import com.hoan.todomap.util.EmailSender;
+import com.hoan.todomap.util.GoogleEmailSender;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class MapRestController {
 
-    private EmailSender emailSender;
+    private GoogleEmailSender emailSender;
 
-    public MapRestController(EmailSender emailSender) {
+    public MapRestController(GoogleEmailSender emailSender) {
         this.emailSender = emailSender;
     }
 
