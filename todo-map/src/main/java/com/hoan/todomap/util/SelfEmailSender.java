@@ -22,7 +22,8 @@ public class SelfEmailSender {
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text, true);
-        helper.setFrom("noreply@hoan.com"); // 발신자 설정
+//        helper.setFrom("noreply@hoan.com"); // 발신자 설정
+        helper.setFrom("bluepack701@gmail.com"); // 발신자 설정
 
         mailSender.send(message);
     }
