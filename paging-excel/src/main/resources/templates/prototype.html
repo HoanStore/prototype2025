@@ -5,71 +5,84 @@
       xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/admin_layout}">
 <head>
-    <title>프로토타입</title>
+    <title th:text="#{title.prototype}">프로토타입</title>
     <script th:src="@{/js/prototype/prototypeCommon.js}"></script>
     <script th:src="@{/js/prototype/prototype.js}"></script>
 </head>
 <div class="cont_box" layout:fragment="content">
 
     <div class="navi">
-        <p><span class="home">Home</span><span>&gt</span>프로토타입</span><span>&gt;</span><strong>1</strong></p>
+        <p>
+            <span class="home" th:text="#{nav.home}">Home</span>
+            <span>&gt;</span>
+            <span th:text="#{nav.prototype}">프로토타입</span>
+            <span>&gt;</span>
+            <strong th:text="#{nav.step1}">1</strong>
+        </p>
     </div>
     <div class="cont">
-        <h3>프로토타입</h3>
+        <h3 th:text="#{title.prototype}">프로토타입</h3>
         <div class="tb_cont">
-            <span class="tb_txt">전체 <strong>0</strong> 건</span>
+            <span class="tb_txt">
+                <span th:text="#{search.total}">전체</span> <strong>0</strong> <span th:text="#{search.count}">건</span>
+            </span>
             <select name="perPageNum" id="perPageNum">
-                <option value="-1" >전체</option>
-                <option value="10" selected/>10</option>
-                <option value="30" />30</option>
-                <option value="50" />50</option>
-                <option value="100"/>100</option>
+                <option value="-1" th:text="#{search.total}">전체</option>
+                <option value="10" selected>10</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
             </select>
 
             <div class="search_area">
                 <select name="keyfield">
-                    <option value="all">전체</option>
-                    <option value="type1">type1</option>
-                    <option value="type2">type2</option>
-                    <option value="type3">type3</option>
+                    <option value="all" th:text="#{search.total}">전체</option>
+                    <option value="type1" th:text="#{search.type1}">type1</option>
+                    <option value="type2" th:text="#{search.type2}">type2</option>
+                    <option value="type3" th:text="#{search.type3}">type3</option>
                 </select>
 
-                <input id="keywordInput" name="keyword" type="text" title="검색어" class="input_txt" />
-                <a class="btn_search" href="javascript:stats.getStatistics()">검색</a>
+                <input id="keywordInput" name="keyword" type="text" title="검색어" class="input_txt"
+                       th:attr="placeholder=#{search.keyword}"/>
+                <a class="btn_search" href="javascript:stats.getStatistics()" th:text="#{button.search}">검색</a>
             </div>
         </div>
 
         <div class="btn_top">
-            <a class="btn_red btn_excel_template_download" href="javascript:void(0);" >엑셀 업로드 탬플릿</a>
-            <a class="btn_red btn_excel_upload" href="javascript:void(0);" >엑셀 업로드</a>
-            <a class="btn_red btn_excel_download" href="javascript:void(0);" >엑셀 다운로드</a>
+            <a class="btn_red btn_excel_template_download" href="javascript:void(0);" th:text="#{button.excel.template}">엑셀 업로드 템플릿</a>
+            <a class="btn_red btn_excel_upload" href="javascript:void(0);" th:text="#{button.excel.upload}">엑셀 업로드</a>
+            <a class="btn_red btn_excel_download" href="javascript:void(0);" th:text="#{button.excel.download}">엑셀 다운로드</a>
         </div>
 
         <form id="form" class="my-form" enctype="multipart/form-data">
-            <input type="file" id="excelFileUpload" name="excelFileUpload"  accept=".xlsx, .xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none"/>
+            <input type="file" id="excelFileUpload" name="excelFileUpload"
+                   accept=".xlsx, .xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                   style="display:none"/>
         </form>
 
         <table class="table_list">
-            <caption>프로토타입</caption>
+            <caption th:text="#{title.prototype}">프로토타입</caption>
             <colgroup>
-                <col style="width: auto" />
-                <col style="width: auto" />
-                <col style="width: auto" />
-                <col style="width: auto" />
+                <col style="width: auto"/>
+                <col style="width: auto"/>
+                <col style="width: auto"/>
+                <col style="width: auto"/>
             </colgroup>
             <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">제목</th>
-                <th scope="col">내용</th>
-                <th scope="col">생성시기</th>
+                <th scope="col" th:text="#{table.id}">ID</th>
+                <th scope="col" th:text="#{table.title}">제목</th>
+                <th scope="col" th:text="#{table.content}">내용</th>
+                <th scope="col" th:text="#{table.createdAt}">생성시기</th>
             </tr>
             </thead>
             <tbody id="tmt_body">
             </tbody>
         </table>
 
-        <div class="btn"><a class="btn_red" href="javascript:void(0);" id="btn_register">등록</a></div>
+        <div class="btn">
+            <a class="btn_red" href="javascript:void(0);" id="btn_register" th:text="#{button.register}">등록</a>
+        </div>
         <div id="div_page" class="page_list">
         </div>
     </div>
