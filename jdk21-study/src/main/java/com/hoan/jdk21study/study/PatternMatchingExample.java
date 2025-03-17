@@ -1,4 +1,4 @@
-package com.hoan.jdk21study;
+package com.hoan.jdk21study.study;
 
 sealed interface Shape permits Circle, Rectangle {}
 
@@ -7,6 +7,7 @@ record Rectangle(double width, double height) implements Shape {}
 
 public class PatternMatchingExample {
     static void printArea(Shape shape) {
+
         switch (shape) {
             case Circle c -> System.out.println("Area: " + (Math.PI * c.radius() * c.radius()));
             case Rectangle r -> System.out.println("Area: " + (r.width() * r.height()));
