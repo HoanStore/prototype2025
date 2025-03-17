@@ -1,7 +1,8 @@
 package com.hoan.jdk21study.study;
 
-import java.util.stream.IntStream;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PrimeCheckerWithVirtualThread {
     public static boolean isPrime(int number) {
