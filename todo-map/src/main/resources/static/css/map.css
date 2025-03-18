@@ -67,3 +67,21 @@ th {
     text-decoration: line-through double; /* 두 줄 취소선 */
 }
 
+.todo-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#feelingGoodBtn {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#feelingGoodBtn:hover {
+    background-color: #45a049;
+}
