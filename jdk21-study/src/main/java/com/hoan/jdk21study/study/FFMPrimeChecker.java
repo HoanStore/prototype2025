@@ -21,14 +21,14 @@ public class FFMPrimeChecker {
         boolean result = (boolean) isPrime.invoke(4);
         System.out.println("FFM API Result: " + result);
 
-        int[] ints = generateRandomIntArray(700);
+        int[] ints = generateRandomIntArray(1000);
 
         /**
          * C 성능 테스트
          */
         long startTime1 = System.nanoTime();
         for(int i=0; i<ints.length; i++) {
-            boolean a = (boolean) isPrime.invoke(ints[i]);
+            isPrime.invoke(ints[i]);
         }
         long endTime1 = System.nanoTime();
         System.out.println("C: "+(endTime1-startTime1));
@@ -38,10 +38,11 @@ public class FFMPrimeChecker {
          */
         long startTime2 = System.nanoTime();
         for(int i=0; i<ints.length; i++) {
-            boolean b = javaIsPrime(ints[i]);
+            javaIsPrime(ints[i]);
         }
         long endTime2 = System.nanoTime();
         System.out.println("JAVA: "+(endTime2-startTime2));
+
 
     }
 
