@@ -1,6 +1,5 @@
 package com.hoan.jdk21study.study;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SequencedCollection;
