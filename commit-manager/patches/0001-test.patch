@@ -1,0 +1,32 @@
+From e365dd6d1955337399896ddc15750a62c3fd5a8e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=EC=A1=B0=EA=B7=BC=EC=99=84?= <kwjo@mqnic.com>
+Date: Thu, 20 Mar 2025 10:26:48 +0900
+Subject: [PATCH] =?UTF-8?q?test:=20=EC=BB=A4=EB=B0=8B=20=EB=82=B4=EC=97=AD?=
+ =?UTF-8?q?=EC=9D=84=20=ED=8C=8C=EC=9D=BC=EB=A1=9C=20=EC=A0=80=EC=9E=A5?=
+ =?UTF-8?q?=ED=95=A0=20=EC=88=98=20=EC=9E=88=EB=8A=94=EA=B0=80=3F?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ commit-manager/README.md | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/commit-manager/README.md b/commit-manager/README.md
+index 3a5023c..38db500 100644
+--- a/commit-manager/README.md
++++ b/commit-manager/README.md
+@@ -1,4 +1,7 @@
+ # 커밋 매니저
+ 
+ ## 주요 기능
+-1. 커밋을 모아서 특정 시점에 보낼 수 있는 기능
+\ No newline at end of file
++1. 커밋을 모아서 특정 시점에 보낼 수 있는 기능
++
++
++test1
+\ No newline at end of file
+-- 
+2.39.3 (Apple Git-146)
+
