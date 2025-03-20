@@ -3,7 +3,6 @@ package com.hoan.jdk21study.study;
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Random;
 
 public class FFMPrimeChecker {
