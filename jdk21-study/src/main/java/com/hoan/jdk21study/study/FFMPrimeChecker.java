@@ -20,7 +20,7 @@ public class FFMPrimeChecker {
         boolean result = (boolean) isPrime.invoke(4);
         System.out.println("FFM API Result: " + result);
 
-        int[] ints = generateRandomIntArray(1000);
+        int[] ints = generateRandomIntArray(10000);
 
         /**
          * C 성능 테스트
