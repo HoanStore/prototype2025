@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git 커밋 웹</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 20px auto; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, button { width: 100%; padding: 8px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<h2>Git 커밋 웹</h2>
+
+<form id="gitForm">
+    <label for="username">User Name</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="email">User Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">User Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="gitUrl">Remote Git URL</label>
+    <input type="url" id="gitUrl" name="gitUrl" required>
+
+    <label for="file">파일 업로드</label>
+    <input type="file" id="file" name="file" required>
+
+    <label for="commitMsg">Commit Message</label>
+    <input type="text" id="commitMsg" name="commitMsg" required>
+
+    <label for="branch">Branch Name</label>
+    <input type="text" id="branch" name="branch" value="main" required>
+
+    <button type="submit">제출</button>
+</form>
+
+<script>
+    document.getElementById('gitForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Git 커밋 요청이 제출되었습니다.');
+        // 여기서 서버로 데이터를 전송하는 코드 추가 가능
+    });
+</script>
+
+</body>
+</html>

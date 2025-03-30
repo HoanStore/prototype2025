@@ -20,7 +20,6 @@ git push origin main
 ```
 
 
-<<<<<<< HEAD
 ```
 ./apply-patch.sh ../commit-manager-store/ ../commit-store/
 ```
@@ -35,7 +34,5 @@ patch 파일을 특정 경로에 올리면,
 서버 소스에 반영이 되고,
 자동으로 원격 레포지토리에 반영되는 부분까지 작업하였습니다. 
 ```
-=======
-test1
->>>>>>> 7546f5ecbdc4c0a5055a413259d59448d471b297
+
 
