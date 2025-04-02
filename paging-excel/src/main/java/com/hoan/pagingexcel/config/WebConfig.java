@@ -14,8 +14,6 @@ import java.util.Locale;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-
-
     // 기본 로케일을 Accept-Language 헤더 기반으로 설정
     @Bean
     public LocaleResolver localeResolver() {
