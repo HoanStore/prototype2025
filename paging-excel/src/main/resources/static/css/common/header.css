@@ -1,0 +1,131 @@
+@charset "utf-8";
+
+/* 전체 메뉴 스타일 */
+.total-menu {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto; /* 세로 스크롤 추가 */
+	background-color: rgba(51, 51, 51, 0.8);
+	color: white;
+	padding: 20px;
+	box-sizing: border-box;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+}
+
+/* 메뉴 컨테이너 */
+#menu-map {
+	display: flex;
+	overflow-x: auto; /* 가로 스크롤 추가 */
+	gap: 20px;
+	max-width: 100%;
+}
+
+/* 각 대메뉴는 일정 크기로 유지 */
+.main-menu {
+	min-width: 300px; /* 최소 너비 설정 */
+	max-width: 400px; /* 최대 너비 설정 */
+}
+
+/* 중메뉴, 소메뉴 줄바꿈 방지 */
+.total-menu ul {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* 세로 나열 */
+.total-menu ul li {
+	margin: 10px 0;
+}
+
+.total-menu ul li a {
+	color: white !important;  /* 흰색 고정 */
+	text-decoration: none;
+	font-size: 18px;
+	display: block;
+	padding: 10px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+/* 방문한 링크도 흰색 유지 */
+.total-menu ul li a:visited {
+	color: white !important;
+}
+
+/* 링크 hover 효과 */
+.total-menu ul li a:hover {
+	background-color: #555;
+	color: #fff !important; /* hover 시에도 흰색 유지 */
+}
+
+/* 스크롤바 스타일 (선택 사항) */
+.total-menu::-webkit-scrollbar {
+	width: 8px;
+}
+
+.total-menu::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 4px;
+}
+
+.total-menu::-webkit-scrollbar-track {
+	background: rgba(51, 51, 51, 0.3);
+}
+
+/* X 버튼 스타일 */
+.close-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 30px;
+	cursor: pointer;
+	color: white;
+	background: none;
+	border: none;
+	z-index: 2000;  /* 다른 요소들 위에 표시 */
+}
+
+/* X 버튼 hover 시 색상 변경 */
+.close-btn:hover {
+	color: #ff6666;  /* hover 시 색상 변경 */
+}
+
+
+/* 중메뉴 스타일 */
+.submenu a {
+	font-weight: bold;  /* 글자를 굵게 */
+	font-size: 50px;  /* 글자 크기 조정 */
+	color: #007BFF;  /* 글자 색상 변경 (중메뉴 강조) */
+}
+
+.mainmenu-item > a {
+	font-size: 3em; /* 대메뉴 글자 크기 */
+	font-weight: bold;
+}
+
+.submenu-item > a {
+	font-size: 1.2em; /* 중메뉴 글자 크기 */
+	font-weight: bold;
+}
+
+.smallmenu-item > a {
+	font-size: 1em; /* 소메뉴 글자 크기 */
+	font-weight: normal;
+}
+
+.submenu-item > a {
+	font-size: 1.2em; /* 중메뉴 글자 크기 */
+	font-weight: bold;
+}
+
+.smallmenu-item > a {
+	font-size: 1em; /* 소메뉴 글자 크기 */
+	font-weight: normal;
+}

@@ -4,6 +4,7 @@ package com.hoan.pagingexcel.common;
 
 import com.hoan.pagingexcel.common.domain.FileDetailVO;
 import com.hoan.pagingexcel.common.domain.MenuStructureCode;
+import com.hoan.pagingexcel.common.domain.MenuVO;
 import com.hoan.pagingexcel.common.service.CommonService;
 import com.hoan.pagingexcel.common.util.file.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,11 @@ public class CommonController {
     @PostMapping("/getMenuCode")
     public ResponseEntity<List<Object>> getMenuCode(@RequestBody(required = false) Map<String, String> param) {
         return ResponseEntity.ok(Arrays.asList(MenuStructureCode.values()));
+    }
+
+    @PostMapping("/getMenuCodeByDB")
+    public ResponseEntity<List<MenuVO>> getMenuCodeByDB(@RequestBody(required = false) Map<String, String> param) {
+        return ResponseEntity.ok(commonService.getAllMenuByDB());
     }
 
 

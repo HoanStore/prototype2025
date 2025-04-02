@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     // 404 에러 처리 (잘못된 URL 요청 등)
     @ExceptionHandler(Exception.class)
     public String handleException(ResponseStatusException e, Model model) {

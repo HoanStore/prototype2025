@@ -33,4 +33,14 @@ CREATE TABLE attfl_mgmt_detl (
 
 
 
+CREATE TABLE menu (
+                          menu_id INT PRIMARY KEY AUTO_INCREMENT,
+                          menu_name VARCHAR(255) NOT NULL,  -- 메뉴 이름
+                          url VARCHAR(255),                -- 메뉴 URL
+                          parent_id INT,                   -- 부모 메뉴 ID (대분류/중분류/소분류 관계)
+                          level INT,                       -- 메뉴 레벨 (대분류=1, 중분류=2, 소분류=3)
+                          is_used BOOLEAN,                 -- 메뉴 사용 여부
+                          FOREIGN KEY (parent_id) REFERENCES menu(menu_id) ON DELETE CASCADE  -- 부모-자식 관계 설정 // -- 외래 키 제약이 존재하지만, 대분류 메뉴는 `parent_id`가 NULL이므로 예외가 발생하지 않음
+);
+
 

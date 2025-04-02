@@ -15,27 +15,6 @@ $(document).ready(function() {
     getMenuCode(0);
 });
 
-// function setMenuHighLight() {
-//     const paths = window.location.pathname.split("/admin");
-//     const depth1 = "/"+paths[1];
-//     const depth2 = "/"+paths[1]+"/"+paths[2];
-//
-//     if(depth1 === "/") {
-//         $(`#tab_box a:first`).addClass('on');
-//         $('#sidebar a:first').addClass('on');
-//         return;
-//     }
-//
-//     if(paths.length < 3) {
-//         $(`#tab_box a[href="${depth1}"]`).addClass('on');
-//         $('#sidebar a:first').addClass('on');
-//         return;
-//     }
-//
-//     $(`#tab_box a[href="${depth1}"]`).addClass('on');
-//     $(`#sidebar a[href="${depth2}"]`).addClass('on');
-// }
-
 function getMenuCode(_idx) {
 
     return $.ajax({

@@ -18,48 +18,21 @@ public interface CommonService {
      * generateAttflId, saveFiles, insertFileInfoToDB
      *
      */
-
     String generateAttflId (String mgmtType);
-
-    void saveFiles(List<MultipartFile> multipartFiles, FileVO fileMetaInfo);
-
-    void insertFileInfoToDB(FileVO fileVO);
-
 
     String uploadFiles(List<MultipartFile> multipartFiles, String attflId, String mgmtType);
 
-    void uploadNationalFlag(MultipartFile multipartFiles, NationalCodeVO nationalCodeVO);
-
-
     String registerFiles(List<MultipartFile> multipartFiles, FileVO fileMetaInfo);
 
-    String appendFiles(List<MultipartFile> multipartFiles, FileVO fileMetaInfo);
-
     FileVO selectFilesByAttflId(String attflId);
-
-    FileVO selectLogoFileByAttflId(String attflId);
 
     FileDetailVO selectFileNmAndPath(String attflId, Long attflSeq);
 
     void deleteTargetFiles(String attflId, List<Long> deleteFileList);
+
     void deleteAllFiles(String attflId);
 
-    List<NationalCodeVO> selectPbanTypeCode();
-
-    List<NationalCodeVO> selectNationalCode();
-
-    List<ModifyHistVO> selectModifyHists(ModifyHistVO modifyHistVO);
-
-    void registerModifyHist(ModifyHistVO modifyHistVO);
-
-    void deleteModifyHist(ModifyHistVO build);
-
-    List<CmmnCodeVO> selectCmmnCodeListByGroupId(String cdGrpId);
-    NationalCodeVO getNationalCodeByNtnlNm(String ntnlNm);
-
-    NationalCodeVO getContinentCodeByCnttNm(String cnttNm);
-
-    CmmnCodeVO getBizCode(String detlCdNm);
+    List<MenuVO> getAllMenuByDB();
 
 
 }

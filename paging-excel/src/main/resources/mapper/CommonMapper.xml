@@ -74,4 +74,10 @@
         where attfl_id = #{attflId} and attfl_seq = #{attflSeq}
     </delete>
 
+
+    <select id="getAllMenuByDB" resultType="com.hoan.pagingexcel.common.domain.MenuVO">
+        SELECT * FROM MENU
+        where is_used = true
+
+    </select>
 </mapper>

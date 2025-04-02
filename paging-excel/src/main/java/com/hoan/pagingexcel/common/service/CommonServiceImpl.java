@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -65,18 +64,6 @@ public class CommonServiceImpl implements CommonService{
     }
 
 
-    @Override
-    public void uploadNationalFlag(MultipartFile multipartFiles, NationalCodeVO nationalCodeVO)  {
-        if (multipartFiles == null || multipartFiles.isEmpty()) {
-            log.info("국기가 존재하지 않습니다.");
-            return;
-        }
-
-        FileDetailVO fileDetailVO = uploadNationalFlag(multipartFiles);
-        nationalCodeVO.setNtnlUrl(fileDetailVO.getFileSavePath()+fileDetailVO.getSaveFileNm());
-
-        commonMapper.insertFlagFile(nationalCodeVO);
-    }
 
     /**
      * 처음으로 파일 업로드할 떄 사용하는 메서드
@@ -104,51 +91,6 @@ public class CommonServiceImpl implements CommonService{
                 fileDetailVO.setAttflIstc(attflIstcArray[i]);
             }
 
-            insertFileDetails(fileDetailVO);
-        }
-
-        return attachFileId;
-    }
-
-
-
-
-    @Override
-    public void saveFiles(List<MultipartFile> multipartFiles, FileVO fileMetaInfo) {
-        if (multipartFiles == null || multipartFiles.isEmpty()) {
-            return;
-        }
-
-        for (MultipartFile file : multipartFiles) {
-            FileDetailVO fileDetailVO = uploadFile(file);
-            fileDetailVO.setAttflId(fileMetaInfo.getAttflId());
-            insertFileDetails(fileDetailVO);
-        }
-    }
-
-    @Override
-    public void insertFileInfoToDB(FileVO fileVO) {
-        commonMapper.insertFile(fileVO);
-    }
-
-    /**
-     * attachFileId를 알고 있을 때 사용하는 파일 업로드 메서드
-     * @param multipartFiles
-     * @param fileMetaInfo
-     * @return
-     * @throws InvalidFileTypeException
-     */
-    @Override
-    public String appendFiles(List<MultipartFile> multipartFiles, FileVO fileMetaInfo) throws InvalidFileTypeException {
-        String attachFileId = fileMetaInfo.getAttflId();
-
-        if (multipartFiles == null || multipartFiles.isEmpty()) {
-            return fileMetaInfo.getAttflId();
-        }
-
-        for (MultipartFile file : multipartFiles) {
-            FileDetailVO fileDetailVO = uploadFile(file);
-            fileDetailVO.setAttflId(fileMetaInfo.getAttflId());
             insertFileDetails(fileDetailVO);
         }
 
@@ -209,22 +151,7 @@ public class CommonServiceImpl implements CommonService{
         return fileVO;
     }
 
-    @Override
-    public FileVO selectLogoFileByAttflId(String attflId) {
-        FileVO fileVO = commonMapper.selectFileByAttflId(attflId);
-        if (fileVO != null) {
-            List<FileDetailVO> fileDetails = commonMapper.selectLogoDetailsByAttflId(attflId);
 
-            // 이미지 여부 확인
-            fileDetails = fileDetails.stream().peek(file -> {
-                Optional<String> fileTypeInfoOpt = Optional.ofNullable(file.getFileTypeInfo());
-                file.setImage(fileTypeInfoOpt.map(s -> s.startsWith("image")).orElse(false));
-            }).collect(Collectors.toList());
-
-            fileVO.setFileDetailList(fileDetails);
-        }
-        return fileVO;
-    }
 
     @Override
     public FileDetailVO selectFileNmAndPath(String attflId, Long attflSeq) {
@@ -275,53 +202,9 @@ public class CommonServiceImpl implements CommonService{
     }
 
     @Override
-    public List<NationalCodeVO> selectPbanTypeCode() {
-        return commonMapper.selectPbanTypeCode();
+    public List<MenuVO> getAllMenuByDB() {
+        return commonMapper.getAllMenuByDB();
     }
-
-    @Override
-    public List<NationalCodeVO> selectNationalCode() {
-        return commonMapper.selectNationalCode();
-    }
-
-    @Override
-    public List<ModifyHistVO> selectModifyHists(ModifyHistVO modifyHistVO) {
-        return commonMapper.selectModifyHists(modifyHistVO);
-    }
-
-
-    @Override
-    public void registerModifyHist(ModifyHistVO modifyHistVO) {
-        commonMapper.registerModifyHist(modifyHistVO);
-    }
-
-    @Override
-    public void deleteModifyHist(ModifyHistVO modifyHistVO) {
-        commonMapper.deleteModifyHist(modifyHistVO);
-    }
-
-    @Override
-    public List<CmmnCodeVO> selectCmmnCodeListByGroupId(String cdGrpId) {
-        return commonMapper.selectCmmnCodeListByGroupId(cdGrpId);
-    }
-
-    public NationalCodeVO getNationalCodeByNtnlNm(String ntnlNm) {
-        return commonMapper.getNationalCodeByNtnlNm(ntnlNm);
-    }
-
-    @Override
-    public NationalCodeVO getContinentCodeByCnttNm(String cnttNm) {
-        return commonMapper.getContinentCodeByCnttNm(cnttNm);
-    }
-
-    @Override
-    public CmmnCodeVO getBizCode(String detlCdNm) {
-        return commonMapper.getBizCode(detlCdNm);
-    }
-
-
-
-
 
 
 }
