@@ -214,9 +214,6 @@ VALUES
     (1511, 'AVC 수용 요청', '/control-network/registration', 1510, 4, TRUE)
 ;
 
---
-
-
 -- 소메뉴 아래 - 실제 메뉴
 -- [VDS]
 INSERT INTO menu (menu_id, menu_name, url, parent_id, level, is_used)

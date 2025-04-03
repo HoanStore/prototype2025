@@ -37,7 +37,6 @@ function getMenuCode(_idx) {
 }
 
 function drawsidebar(menuList) {
-    console.log(menuList);
     const paths = window.location.pathname;
     const currentMenu = menuList.find(menu => paths.startsWith(menu.pathPrefix)) || menuList[5];
     let html = '<ul>';

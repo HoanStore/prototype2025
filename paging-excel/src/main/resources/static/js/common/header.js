@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    $('#favoriteBtn').on('click', function () {
+        $('#favoriteMenu').toggleClass('hidden');
+    });
+
     // 햄버거 메뉴 버튼 클릭 시
     $("#toggleMenu").click(function() {
         $("#total-menu").toggle(); // 메뉴의 표시 여부를 토글
@@ -8,6 +12,9 @@ $(document).ready(function() {
     $("#closeMenu").click(function() {
         $("#total-menu").hide(); // 메뉴 숨기기
     });
+
+
+
     getHeaderMenuCode(0);
 });
 

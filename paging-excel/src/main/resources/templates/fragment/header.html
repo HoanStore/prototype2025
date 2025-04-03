@@ -10,62 +10,57 @@
         <div class="util">
             <span><a th:href="@{/}"><img th:src="@{/images/common/btn_home.png}"  alt="홈페이지 바로가기" /></a></span>
             <a th:href="@{/}"><img th:src="@{/images/common/btn_exit.png}" alt="접속종료" /></a>
+
+            <!-- 즐겨찾기 버튼 추가 -->
+            <div class="favorite-wrap">
+                <a href="javascript:void(0);" id="favoriteBtn">
+                    <img src="/images/common/btn_favorite.png" alt="즐겨찾기" />
+                </a>
+
+            </div>
+
             <a href="javascript:void(0);" id="toggleMenu">
                 <img src="/images/common/btn_hamburger.png" alt="전체 메뉴" />
             </a>
         </div>
 
+        <div id="favoriteMenu" class="dropdown hidden">
+            <ul>
+                <li><a href="#">즐겨찾기 1</a></li>
+                <li><a href="#">즐겨찾기 2</a></li>
+                <li><a href="#">즐겨찾기 3</a></li>
+            </ul>
+        </div>
+
         <div id="total-menu" class="total-menu" style="display: none;">
             <div class="close-btn" id="closeMenu">X</div> <!-- 닫기 버튼 -->
             <div id="menu-map" style="display: flex;"> <!-- 대메뉴를 세로로 배치 -->
-                <ul class="main-menu"> <!-- 대메뉴 1 -->
-                    <li class="mainmenu-item">
-                        <a href="#">대메뉴 1</a>
-                        <ul class="sub-menu"> <!-- 중메뉴 -->
-                            <li class="submenu-item">
-                                <a href="#">- 중메뉴 1-1</a>
-                                <ul class="small-menu"> <!-- 소메뉴 -->
-                                    <li class="smallmenu-item">
-                                        <a href="#">-- 소메뉴 1-1-1</a>
-                                        <ul class="detail-menu"> <!-- 세부 메뉴 -->
-                                            <li><a href="#">--- 세부 메뉴 1-1-1-1</a></li>
-                                            <li><a href="#">--- 세부 메뉴 1-1-1-2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="smallmenu-item"><a href="#">-- 소메뉴 1-1-2</a></li>
-                                </ul>
-                            </li>
-                            <li class="submenu-item"><a href="#">- 중메뉴 1-2</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="main-menu"> <!-- 대메뉴 2 -->
-                    <li class="mainmenu-item">
-                        <a href="#">대메뉴 2</a>
-                        <ul class="sub-menu"> <!-- 중메뉴 -->
-                            <li class="submenu-item"><a href="#">- 중메뉴 2-1</a></li>
-                            <li class="submenu-item">
-                                <a href="#">- 중메뉴 2-2</a>
-                                <ul class="small-menu"> <!-- 소메뉴 -->
-                                    <li class="smallmenu-item"><a href="#">-- 소메뉴 2-2-1</a></li>
-                                    <li class="smallmenu-item"><a href="#">-- 소메뉴 2-2-2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="main-menu"> <!-- 대메뉴 3 -->
-                    <li class="mainmenu-item">
-                        <a href="#">대메뉴 3</a>
-                        <ul class="sub-menu"> <!-- 중메뉴 -->
-                            <li class="submenu-item"><a href="#">- 중메뉴 3-1</a></li>
-                            <li class="submenu-item"><a href="#">- 중메뉴 3-2</a></li>
-                        </ul>
-                    </li>
-                </ul>
             </div>
         </div>
+
+
     </div>
+
+
+    <style>
+        .favorite-wrap {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+        }
+        .dropdown.hidden {
+            display: none;
+        }
+    </style>
+
 </header>
 </html>
 
