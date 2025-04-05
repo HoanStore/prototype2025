@@ -15,6 +15,14 @@ public class CommonServiceTest {
     private CommonService commonService;
     
     @Test
+    public void getAllMenuByEnum() {
+        List<Object> allMenuByEnum = commonService.getAllMenuByEnum();
+        for (Object o : allMenuByEnum) {
+            System.out.println("o = " + o);
+        }
+    }
+    
+    @Test
     public void getAllMenu() {
         List<MenuVO> allMenuByDB = commonService.getAllMenuByDB();
         for (MenuVO menuVO : allMenuByDB) {

@@ -32,6 +32,8 @@ public interface CommonService {
 
     void deleteAllFiles(String attflId);
 
+    List<Object> getAllMenuByEnum();
+
     List<MenuVO> getAllMenuByDB();
 
 

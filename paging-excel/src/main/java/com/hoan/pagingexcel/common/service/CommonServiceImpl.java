@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -199,6 +200,11 @@ public class CommonServiceImpl implements CommonService{
 
         commonMapper.deleteFile(attflId);
         commonMapper.deleteAllFileDetail(attflId);
+    }
+
+    @Override
+    public List<Object> getAllMenuByEnum() {
+        return Arrays.asList(MenuStructureCode.values());
     }
 
     @Override

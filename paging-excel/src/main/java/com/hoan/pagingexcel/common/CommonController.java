@@ -29,7 +29,7 @@ public class CommonController {
 
     @PostMapping("/getMenuCode")
     public ResponseEntity<List<Object>> getMenuCode(@RequestBody(required = false) Map<String, String> param) {
-        return ResponseEntity.ok(Arrays.asList(MenuStructureCode.values()));
+        return ResponseEntity.ok(commonService.getAllMenuByEnum());
     }
 
     @PostMapping("/getMenuCodeByDB")
