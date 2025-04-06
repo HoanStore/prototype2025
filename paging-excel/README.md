@@ -36,3 +36,10 @@ server.ssl.key-store-password=changeit
 ```
 
 
+# DB로 메뉴 구성
+1. DB를 통해 메뉴를 구성하는 메소드를 추가하였음
+
+
+# 즐겨찾기 기능 (향후 추가 예정)
+1. 즐겨찾기 기능 추가 예정
+
