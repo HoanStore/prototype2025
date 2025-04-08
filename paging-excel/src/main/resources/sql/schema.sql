@@ -44,3 +44,18 @@ CREATE TABLE menu (
 );
 
 
+CREATE TABLE weather_info (
+                              region_code CHAR(2) NOT NULL,
+                              weather_code CHAR(2) NOT NULL,
+                              recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                              PRIMARY KEY (region_code, recorded_at)
+);
+
+
+CREATE TABLE favorite_menu (
+                               menu_id VARCHAR(255) NOT NULL,
+                               user_id VARCHAR(255) NOT NULL,
+                               order_index VARCHAR(10) NOT NULL,  -- 메뉴 순서 추가
+                               PRIMARY KEY (menu_id, user_id)  -- 복합키 설정
+);
+

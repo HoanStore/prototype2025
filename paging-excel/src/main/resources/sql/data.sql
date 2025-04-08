@@ -295,3 +295,13 @@ INSERT INTO menu (menu_id, menu_name, url, parent_id, level, is_used)
 VALUES
     (3141, '표출 제어', '/setting/display-control', 3140, 4, TRUE)
 ;
+
+
+
+INSERT INTO weather_info (region_code, weather_code) VALUES ('11', 'SU'); -- 서울 맑음
+INSERT INTO weather_info (region_code, weather_code) VALUES ('26', 'RN'); -- 부산 비
+
+INSERT INTO favorite_menu (menu_id, user_id, order_index)
+VALUES ('1111', 'admin', '1'),
+       ('1112', 'admin', '2'),
+       ('1003', 'test', '1');
