@@ -43,3 +43,6 @@ server.ssl.key-store-password=changeit
 # 즐겨찾기 기능 (향후 추가 예정)
 1. 즐겨찾기 기능 추가 예정
 
+
+
+
