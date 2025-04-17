@@ -8,3 +8,6 @@
 ```
 gcc -shared -o libprime.dylib -fPIC -O3 -march=native -flto prime.c
 ```
+
+
+
