@@ -51,8 +51,8 @@ function drawsidebar(menuList) {
     })
     html += '</ul>';
     $("#sidebar").html(html);
-    $("#header-gnb .tab a").removeClass("on")
-    $(`#header-gnb .tab a`).eq(currentMenu.menuIdx).addClass('on');
+    // $("#header-gnb .tab a").removeClass("on")
+    // $(`#header-gnb .tab a`).eq(currentMenu.menuIdx).addClass('on');
 }
 
 

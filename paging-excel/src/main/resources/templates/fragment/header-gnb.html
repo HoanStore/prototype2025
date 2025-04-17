@@ -4,20 +4,38 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
 
+
+
 <header id="header-gnb" th:fragment="headerGnbFragment">
+    <script>
+        $(function () {
+            const path = window.location.pathname;
+
+            $('.tab a').each(function () {
+                const href = $(this).attr('href');
+
+                // 컨텍스트 경로까지 포함한 비교를 대비해 부분일치로 체크
+                if (path.startsWith(href)) {
+                    $(this).addClass('on');
+                }
+            });
+        });
+    </script>
+
+
     <div>
         <div id="tab_box">
             <p class="name">관리자</p>
             <div class="under_line"></div>
             <div class="tab">
                 <a id="t1" class="" th:href="@{/prototype1-1}">중메뉴1</a>
-                <a id="t2" class="">중메뉴2</a>
-                <a id="t3" class="">중메뉴3</a>
-                <a id="t4" class="">중메뉴4</a>
-                <a id="t5" class="">중메뉴5</a>
-                <a id="t6" class="">중메뉴6</a>
-                <a id="t7" class="">중메뉴7</a>
-                <a id="t8" class="">중메뉴8</a>
+                <a id="t2" class="" th:href="@{/prototype2-1}">중메뉴2</a>
+                <a id="t3" class="" th:href="@{/prototype3-1}">중메뉴3</a>
+                <a id="t4" class="" th:href="@{/prototype4-1}">중메뉴4</a>
+                <a id="t5" class="" th:href="@{/prototype5-1}">중메뉴5</a>
+                <a id="t6" class="" th:href="@{/prototype6-1}">중메뉴6</a>
+                <a id="t7" class="" th:href="@{/prototype7-1}">중메뉴7</a>
+                <a id="t8" class="" th:href="@{/prototype8-1}">중메뉴8</a>
             </div>
         </div>
     </div>

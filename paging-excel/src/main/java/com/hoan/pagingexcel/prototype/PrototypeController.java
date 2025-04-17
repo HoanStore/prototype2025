@@ -43,6 +43,12 @@ public class PrototypeController {
         return "prototype";
     }
 
+
+    @GetMapping("/prototype2-1")
+    public String getPrototype2() {
+        return "prototype";
+    }
+
     @GetMapping( {"/prototype1-2","/prototype1-3","/prototype1-4"})
     public String getDummyPage() {
         return "dummy";
