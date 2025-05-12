@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study;
+package com.hoan.jdk21study.study.jsconceptwithjava;
 
 import java.util.function.Consumer;
 
