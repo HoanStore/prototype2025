@@ -22,11 +22,9 @@ public class AsyncExample {
     }
 
     public void afterJdk8Async() {
-        CompletableFuture.supplyAsync(() -> {
-            return "[after JDK8] Hello, ";
-        }).thenApply(result -> {
-            return result + "World!";
-        }).thenAccept(System.out::println);
+        CompletableFuture.supplyAsync(() -> "[after JDK8] Hello, ")
+                .thenApply(result -> result + "World!")
+                .thenAccept(System.out::println);
     }
 
 
