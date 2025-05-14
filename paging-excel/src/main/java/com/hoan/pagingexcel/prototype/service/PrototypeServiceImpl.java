@@ -9,8 +9,10 @@ import com.hoan.pagingexcel.common.util.file.FileUtil;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeVer2VO;
 import com.hoan.pagingexcel.prototype.mapper.PrototypeMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.cursor.Cursor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +59,11 @@ public class PrototypeServiceImpl implements PrototypeService{
     @Override
     public List<PrototypeExcelVO> getPrototypeListExcel() {
         return prototypeMapper.getPrototypeListExcel();
+    }
+
+    @Override
+    public Cursor<PrototypeVer2VO> getPrototypeVer2Excel() {
+        return prototypeMapper.getPrototypeVer2Excel();
     }
 
     @Override

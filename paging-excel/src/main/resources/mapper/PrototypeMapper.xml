@@ -40,6 +40,17 @@
         order by id desc
     </select>
 
+
+    <select id="getPrototypeVer2Excel" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeVer2VO"
+            parameterType="com.hoan.pagingexcel.common.domain.PageVO">
+        SELECT id,
+               title,
+               content,
+                createdAt
+        FROM(<include refid="PROTOTYPE_SQL"/>)
+        order by id desc
+    </select>
+
     <insert id="registerPrototypeData" parameterType="com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO">
         INSERT INTO board (title, content) VALUES (#{title}, #{content});
     </insert>

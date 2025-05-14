@@ -4,6 +4,8 @@ import com.hoan.pagingexcel.common.domain.PageVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelUploadVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
+import com.hoan.pagingexcel.prototype.domain.PrototypeVer2VO;
+import org.apache.ibatis.cursor.Cursor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ public interface PrototypeService {
     HashMap<String, Object> getPrototypeList(PageVO requestPage);
 
     List<PrototypeExcelVO> getPrototypeListExcel();
+    Cursor<PrototypeVer2VO> getPrototypeVer2Excel();
 
     void registerExcel(List<PrototypeExcelUploadVO> prototypeExcelUploadVOS);
 
