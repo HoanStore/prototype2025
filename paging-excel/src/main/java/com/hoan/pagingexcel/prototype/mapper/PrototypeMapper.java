@@ -30,4 +30,8 @@ public interface PrototypeMapper {
     void deletePrototype(String id);
 
     void modifyPrototype(PrototypeVO prototypeVO);
+
+    List<PrototypeVO> getPrototypeVer2List(int offset, int limit);
+
+    int getPrototypeVer2ListCnt(int offset, int limit);
 }

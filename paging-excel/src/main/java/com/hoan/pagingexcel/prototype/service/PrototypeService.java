@@ -6,6 +6,7 @@ import com.hoan.pagingexcel.prototype.domain.PrototypeExcelVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVO;
 import com.hoan.pagingexcel.prototype.domain.PrototypeVer2VO;
 import org.apache.ibatis.cursor.Cursor;
+import org.springframework.data.domain.Pageable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,4 +27,6 @@ public interface PrototypeService {
     void deletePrototype(String id, String value, String attflId);
 
     void modifyPrototype(PrototypeVO prototypeVO);
+
+    HashMap<String, Object> getPrototypeVer2List(Pageable pageable);
 }

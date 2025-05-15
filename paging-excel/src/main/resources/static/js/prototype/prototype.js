@@ -19,6 +19,8 @@ const stats = (function () {
             data: JSON.stringify({curPage: _pageNo, pageSize: _pageSize, searchType: _searchType, keyword : _keyword}),
             success: function(_res) {
 
+                debugger;
+
                 $("#perPageNum option:first").val(_res.page.listCnt);
                 $(".tb_txt strong").text(_res.page.listCnt);
 

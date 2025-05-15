@@ -28,6 +28,20 @@
         order by prots.id desc LIMIT #{pageSize} OFFSET (#{curPage}-1) * 10
     </select>
 
+    <select id="getPrototypeVer2List" resultType="com.hoan.pagingexcel.prototype.domain.PrototypeVO">
+        SELECT *
+        FROM(<include refid="PROTOTYPE_SQL"/>) prots
+        order by prots.id
+        desc LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <select id="getPrototypeVer2ListCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM(<include refid="PROTOTYPE_SQL"/>) prots
+    </select>
+
+
     <insert id="registerPrototype" parameterType="com.hoan.pagingexcel.prototype.domain.PrototypeVO">
         INSERT INTO board (title, content, attflId)
         VALUES (#{title}, #{content}, #{attflId})

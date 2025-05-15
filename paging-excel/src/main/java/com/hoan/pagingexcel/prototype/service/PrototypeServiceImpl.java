@@ -13,6 +13,7 @@ import com.hoan.pagingexcel.prototype.domain.PrototypeVer2VO;
 import com.hoan.pagingexcel.prototype.mapper.PrototypeMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.cursor.Cursor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,6 +107,25 @@ public class PrototypeServiceImpl implements PrototypeService{
         }
 
         prototypeMapper.modifyPrototype(prototypeVO);
+    }
+
+    @Override
+    public HashMap<String, Object> getPrototypeVer2List(Pageable pageable) {
+        int offset = pageable.getPageNumber() * pageable.getPageSize();
+        int limit = pageable.getPageSize();
+
+        List<PrototypeVO> list = prototypeMapper.getPrototypeVer2List(offset, limit);
+        int totalCount = prototypeMapper.getPrototypeVer2ListCnt(offset, limit); // 총 개수도 따로 구해야 함
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("content", list);
+        result.put("totalElements", totalCount);
+        result.put("totalPages", (int) Math.ceil((double) totalCount / pageable.getPageSize()));
+        result.put("currentPage", pageable.getPageNumber());
+        result.put("pageSize", pageable.getPageSize());
+
+        return result;
+
     }
 
     public PageVO getpageVO(PageVO requestPage){

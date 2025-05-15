@@ -13,17 +13,25 @@ const stats = (function () {
         }
 
         $.ajax({
-            url: '/getPrototypeList',
+            url: '/getPrototypeVer2List',
             method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({curPage: _pageNo, pageSize: _pageSize, searchType: _searchType, keyword : _keyword}),
+            data: {
+                page: _pageNo - 1,
+                size: _pageSize,
+                searchType: _searchType,
+                keyword: _keyword
+            },
             success: function(_res) {
 
-                $("#perPageNum option:first").val(_res.page.listCnt);
-                $(".tb_txt strong").text(_res.page.listCnt);
+                $("#perPageNum option:first").val(_res.totalElements);
+                $(".tb_txt strong").text(_res.totalElements);
 
-                exprt.drawList(_res.data, 'statistics_template');
-                exprt.drawPagination(_res.page, 'stats.getStatistics');            },
+                exprt.drawList(_res.content, 'statistics_template');
+                /**
+                 * [TODO] 1 2 3 4 5 -> 페이지 번호 작업 해야 함
+                 */
+                exprt.drawPagination(_res, 'stats.getStatistics');
+                },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
             }

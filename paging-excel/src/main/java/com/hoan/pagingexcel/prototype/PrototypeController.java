@@ -16,6 +16,7 @@ import com.poiji.bind.Poiji;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.cursor.Cursor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +99,13 @@ public class PrototypeController {
     @PostMapping("/getPrototypeList")
     public ResponseEntity getPrototypeList(@RequestBody PageVO requestPage) {
         HashMap<String,Object> response = prototypeService.getPrototypeList(requestPage);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/getPrototypeVer2List")
+    public ResponseEntity getPrototypeVer2List(Pageable pageable) {
+        HashMap<String,Object> response = prototypeService.getPrototypeVer2List(pageable);
         return ResponseEntity.ok(response);
     }
 

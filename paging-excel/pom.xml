@@ -159,6 +159,11 @@
             <version>3.12.0</version> <!-- or the latest version available -->
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

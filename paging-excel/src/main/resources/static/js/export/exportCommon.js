@@ -261,9 +261,12 @@ const exprt = (function () {
         bodyObj.html(rendered);
     }
     const drawPagination = function (_page, _func) {
+
         let pageObj = $('#div_page'),
             pageTemplate = $('#paging_template').html(),
             rendered;
+
+
 
         Mustache.parse(pageTemplate);
 
