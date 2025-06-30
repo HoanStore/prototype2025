@@ -16,6 +16,8 @@ public class BankExample {
             } else {
                 System.out.println(Thread.currentThread().getName() + " 출금 실패. 잔액 부족.");
             }
+
+
         }
     }
 
