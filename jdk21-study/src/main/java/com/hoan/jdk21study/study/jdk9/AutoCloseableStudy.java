@@ -20,6 +20,7 @@ public class AutoCloseableStudy {
     public void jdk8Way() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("test.txt"))) {
             System.out.println(reader.readLine());
+
         }
 
     }
