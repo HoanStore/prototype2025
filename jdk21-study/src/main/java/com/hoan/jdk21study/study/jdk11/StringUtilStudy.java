@@ -1,12 +1,13 @@
 package com.hoan.jdk21study.study.jdk11;
 
+import java.util.stream.Stream;
+
 public class StringUtilStudy {
 
     public static void main(String[] args) {
-
-
-
         stringUtilCanUseInJdk11();
+
+
 
     }
 
@@ -17,7 +18,8 @@ public class StringUtilStudy {
 
         // 2. lines() : 문자열을 줄 단위로 나누어 Stream<String> 형태로 반환
         String text = "Hello\nWorld\nJava";
-        text.lines().forEach(System.out::println);
+        Stream<String> lines = text.lines();
+        lines.forEach(System.out::println);
 
         // 3. strip(), stripLeading(), stripTrailing() : 유니코드 기준 공백 제거 (기존 trim()은 ASCII 공백만 제거)
         String s = "\u2000 Hello \u2000";
