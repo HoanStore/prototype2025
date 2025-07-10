@@ -1,6 +1,6 @@
 const todos = [];
 const baseURL = "https://graphhopper.com/api/1/route";
-const apiKey = "ec535555-da4a-41a7-b2d4-ba935453a7e1";
+const apiKey = "";
 
 let map, markerLayer;
 
