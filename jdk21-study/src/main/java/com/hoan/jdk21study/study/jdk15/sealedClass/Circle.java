@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study.jdk15;
+package com.hoan.jdk21study.study.jdk15.sealedClass;
 
 // Circle.java
 public final class Circle extends SealedClassStudy {

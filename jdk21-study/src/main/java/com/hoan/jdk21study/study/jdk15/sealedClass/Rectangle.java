@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study.jdk15;
+package com.hoan.jdk21study.study.jdk15.sealedClass;
 
 // Rectangle.java
 public final class Rectangle extends SealedClassStudy {
