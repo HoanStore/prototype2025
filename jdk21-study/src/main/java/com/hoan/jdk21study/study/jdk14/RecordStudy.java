@@ -1,7 +1,7 @@
 package com.hoan.jdk21study.study.jdk14;
 
 /**
- * JDK 14에서 도입된 **record**는 간결한 방식으로
+ * JDK 14에서 도입된 record(preview)는 간결한 방식으로
  * **불변 데이터 객체(Immutable Data Class)**를 선언하는 기능이다.
  * getter, toString(), equals(), hashCode() 등을 자동 생성해주기 때문에
  * DTO, VO, Value Object처럼 데이터를 담기 위한 클래스를 매우 간단하게 정의할 수 있다.
