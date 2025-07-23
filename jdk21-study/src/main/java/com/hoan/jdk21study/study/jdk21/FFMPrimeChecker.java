@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study;
+package com.hoan.jdk21study.study.jdk21;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;

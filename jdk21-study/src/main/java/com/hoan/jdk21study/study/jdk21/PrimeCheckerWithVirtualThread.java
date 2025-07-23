@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study;
+package com.hoan.jdk21study.study.jdk21;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

@@ -1,4 +1,4 @@
-package com.hoan.jdk21study.study;
+package com.hoan.jdk21study.study.jdk21;
 
 sealed interface Shape permits Circle, Rectangle {}
 
